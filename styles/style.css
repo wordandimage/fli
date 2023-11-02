@@ -1,18 +1,59 @@
+:root {
+    --text-main: #000000;
+    --text-alt: #ff0000;
+}
+
 body {
     margin-left: 25vw;
     width: 50vw;
 }
 
+@font-face {
+    font-family: timesmono;
+    src: url(../fonts/pantasia-trial.otf);
+}
+
 nav {
     display: block;
+    color: var(--text-alt);
+}
+
+.fixed-left {
+    top: 2.5vh;
+    left: 3vh;
+}
+
+.fixed-right {
+    top: 2.5vh;
+    right: 3vh;
+}
+
+.fixed-left,
+.fixed-right {
+    display: absolute;
+    position: fixed;
 }
 
 header {
+    display: block;
+    position: fixed;
+    margin: auto;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+header h1 {
+    color: var(--text-alt);
     display: block;
 }
 
 main {
     width: 100%;
+    position: relative;
+    top: 94vh;
+    padding-bottom: 33vh;
+    color: var(--text-main);
 }
 
 details>summary {
@@ -26,6 +67,38 @@ details>summary::-webkit-details-marker {
 h1 {
     margin: auto;
     text-align: center;
+    font-family: timesmono;
+    font-size: 4em;
+    font-weight: normal;
+    transform: skew(0deg, 14.036deg);
+    line-height: 1.45;
+}
+
+h2 {
+    margin: auto;
+}
+
+summary h1 {
+    text-decoration: underline;
+    text-decoration-thickness: .045em;
+    text-underline-offset: 0.14em;
+    margin-top: 1.25em;
+}
+
+details[open] summary h1 {
+    transform: skew(0deg, -14.036deg);
+    text-decoration: none;
+    margin-top: 1.25em;
+}
+
+p,
+span,
+h2,
+#intro {
+    font-family: 'Times New Roman';
+    font-weight: normal;
+    font-size: 2em;
+    line-height: 1.3;
 }
 
 p {
@@ -34,4 +107,10 @@ p {
 
 .proj {
     display: block;
+    margin-left: 2.5em;
+}
+
+.item {
+    margin-top: 2.5em;
+    margin-bottom: 1.25em;
 }
