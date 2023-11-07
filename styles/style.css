@@ -28,12 +28,14 @@
     h2,
     h3,
     li,
-    #intro {
+    #intro,
+    nav {
         font-size: 16px;
         letter-spacing: .25px;
     }
 
-    main {
+    main,
+    nav {
         -webkit-text-stroke-width: 0.3px;
     }
 
@@ -88,12 +90,14 @@
     h2,
     h3,
     li,
-    #intro {
+    #intro,
+    nav {
         font-size: 22px;
         letter-spacing: 0.4px;
     }
 
-    main {
+    main,
+    nav {
         -webkit-text-stroke-width: 0.6px;
     }
 
@@ -148,12 +152,14 @@
     h2,
     h3,
     li,
-    #intro {
+    #intro,
+    nav {
         font-size: 32px;
         letter-spacing: 0.6px;
     }
 
-    main {
+    main,
+    nav {
         -webkit-text-stroke-width: 0.8px;
     }
 
