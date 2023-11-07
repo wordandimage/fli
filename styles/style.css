@@ -1,7 +1,6 @@
 :root {
     --text-main: #000000;
     --text-alt: #ff0000;
-    --mobileheight: calc(var(--vh, 1vh) * 100);
 }
 
 @font-face {
@@ -14,10 +13,6 @@
         margin: auto;
         width: calc(100% - 40px);
         padding: 0px 20px 0px 20px;
-    }
-
-    main {
-        top: var(--mobileheight);
     }
 
     .item {
@@ -36,9 +31,13 @@
     #intro {
         font-size: 16px;
     }
-
+,
     p:first-child {
         margin-top: 12px;
+    }
+
+    h3 {
+        margin-top: 12px !important; 
     }
 
     .fixed-left {
@@ -71,10 +70,6 @@
         width: 680px;
     }
 
-    main {
-        top: 94vh;
-    }
-
     .item {
         margin-top: 60px;
     }
@@ -94,6 +89,10 @@
 
     p:first-child {
         margin-top: 18px;
+    }
+
+    h3 {
+        margin-top: 18px !important;
     }
 
     .fixed-left {
@@ -126,10 +125,6 @@
         width: 1000px;
     }
 
-    main {
-        top: 94vh;
-    }
-
     .item {
         margin-top: 96px;
     }
@@ -149,6 +144,10 @@
 
     p:first-child {
         margin-top: 24px;
+    }
+
+    h3 {
+        margin-top: 24px !important;
     }
 
     .fixed-left {
@@ -203,6 +202,7 @@ header h1 {
 main {
     width: 100%;
     position: relative;
+    top: 94svh;
     padding-bottom: 33vh;
     color: var(--text-main);
 }
@@ -225,7 +225,6 @@ h1 {
 }
 
 h2 {
-    margin: auto;
     font-weight: bold;
 }
 
@@ -250,7 +249,9 @@ details[open] summary h1 {
 p,
 span,
 h2,
-#intro {
+#intro,
+ul,
+li {
     font-family: 'Times New Roman';
     line-height: 1.4;
     word-wrap: break-word;
