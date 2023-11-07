@@ -3,29 +3,144 @@
     --text-alt: #ff0000;
 }
 
-body {
-    margin-left: 25vw;
-    width: 50vw;
+@font-face {
+    font-family: pantasia;
+    src: url(../fonts/pantasia-trial.otf);
 }
 
-@font-face {
-    font-family: timesmono;
-    src: url(../fonts/pantasia-trial.otf);
+@media (max-width: 799px) {
+    body {
+        margin: auto;
+        width: calc(100% - 40px);
+        padding: 0px 20px 0px 20px;
+    }
+
+    .item {
+        margin: 40px;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    p,
+    span,
+    h2,
+    h3,
+    li,
+    #intro {
+        font-size: 16px;
+    }
+
+    p {
+        margin: 12px 0px 0px 0px;
+    }
+
+    .fixed-left {
+        top: 20px;
+        left: 20px;
+    }
+    
+    .fixed-right {
+        top: 20px;
+        right: 20px;
+    }
+
+    ul,
+    .proj  {
+        margin: 0px 0px 0px 20px;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 1599px) {
+    body {
+        margin: auto;
+        width: 680px;
+    }
+
+    .item {
+        margin-top: 60px;
+    }
+
+    h1 {
+        font-size: 44px;
+    }
+
+    p,
+    span,
+    h2,
+    h3,
+    li,
+    #intro {
+        font-size: 22px;
+    }
+
+    p {
+        margin: 18px 0px 0px 0px;
+    }
+
+    .fixed-left {
+        top: 40px;
+        left: 40px;
+    }
+    
+    .fixed-right {
+        top: 40px;
+        right: 40px;
+    }
+
+    ul,
+    .proj  {
+        margin: 0px 0px 0px 44px;
+    }
+}
+
+@media (min-width: 1600px) {
+    body {
+        margin: auto;
+        width: 1000px;
+    }
+
+    .item {
+        margin-top: 96px;
+    }
+
+    h1 {
+        font-size: 64px;
+    }
+
+    p,
+    span,
+    h2,
+    h3,
+    li,
+    #intro {
+        font-size: 32px;
+    }
+
+    p {
+        margin: 24px 0px 0px 0px;
+    }
+
+    .fixed-left {
+        top: 40px;
+        left: 40px;
+    }
+    
+    .fixed-right {
+        top: 40px;
+        right: 40px;
+    }
+
+    ul,
+    .proj  {
+        margin: 0px 0px 0px 64px;
+    }
 }
 
 nav {
     display: block;
     color: var(--text-alt);
-}
-
-.fixed-left {
-    top: 2.5vh;
-    left: 3vh;
-}
-
-.fixed-right {
-    top: 2.5vh;
-    right: 3vh;
 }
 
 .fixed-left,
@@ -67,8 +182,7 @@ details>summary::-webkit-details-marker {
 h1 {
     margin: auto;
     text-align: center;
-    font-family: timesmono;
-    font-size: 4em;
+    font-family: pantasia;
     font-weight: normal;
     transform: skew(0deg, 14.036deg);
     line-height: 1.45;
@@ -76,6 +190,12 @@ h1 {
 
 h2 {
     margin: auto;
+    font-weight: bold;
+}
+
+h3 {
+    margin: auto;
+    font-weight: normal;
 }
 
 summary h1 {
@@ -96,21 +216,14 @@ span,
 h2,
 #intro {
     font-family: 'Times New Roman';
-    font-weight: normal;
-    font-size: 2em;
     line-height: 1.3;
 }
 
-p {
-    margin: auto;
+ul {
+    list-style-type: none;
+    padding: 0;
 }
 
 .proj {
     display: block;
-    margin-left: 2.5em;
-}
-
-.item {
-    margin-top: 2.5em;
-    margin-bottom: 1.25em;
 }
