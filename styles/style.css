@@ -1,6 +1,7 @@
 :root {
     --text-main: #000000;
     --text-alt: #ff0000;
+    --mobileheight: calc(var(--vh, 1vh) * 100);
 }
 
 @font-face {
@@ -15,8 +16,12 @@
         padding: 0px 20px 0px 20px;
     }
 
+    main {
+        top: var(--mobileheight);
+    }
+
     .item {
-        margin: 40px;
+        margin-top: 40px;
     }
 
     h1 {
@@ -32,8 +37,8 @@
         font-size: 16px;
     }
 
-    p {
-        margin: 12px 0px 0px 0px;
+    p:first-child {
+        margin-top: 12px;
     }
 
     .fixed-left {
@@ -46,9 +51,17 @@
         right: 20px;
     }
 
-    ul,
-    .proj  {
+    ul {
         margin: 0px 0px 0px 20px;
+    }
+
+    .proj-title {
+        width: calc(50% - 10px);
+        
+    }
+    
+    .proj-meta {
+        width: calc(50% - 10px);
     }
 }
 
@@ -56,6 +69,10 @@
     body {
         margin: auto;
         width: 680px;
+    }
+
+    main {
+        top: 94vh;
     }
 
     .item {
@@ -75,8 +92,8 @@
         font-size: 22px;
     }
 
-    p {
-        margin: 18px 0px 0px 0px;
+    p:first-child {
+        margin-top: 18px;
     }
 
     .fixed-left {
@@ -89,9 +106,17 @@
         right: 40px;
     }
 
-    ul,
-    .proj  {
+    ul {
         margin: 0px 0px 0px 44px;
+    }
+
+    .proj-title {
+        width: calc(50% - 22px);
+        
+    }
+    
+    .proj-meta {
+        width: calc(50% - 22px);
     }
 }
 
@@ -99,6 +124,10 @@
     body {
         margin: auto;
         width: 1000px;
+    }
+
+    main {
+        top: 94vh;
     }
 
     .item {
@@ -118,8 +147,8 @@
         font-size: 32px;
     }
 
-    p {
-        margin: 24px 0px 0px 0px;
+    p:first-child {
+        margin-top: 24px;
     }
 
     .fixed-left {
@@ -132,9 +161,17 @@
         right: 40px;
     }
 
-    ul,
-    .proj  {
+    ul {
         margin: 0px 0px 0px 64px;
+    }
+
+    .proj-title {
+        width: calc(50% - 32px);
+        
+    }
+    
+    .proj-meta {
+        width: calc(50% - 32px);
     }
 }
 
@@ -166,7 +203,6 @@ header h1 {
 main {
     width: 100%;
     position: relative;
-    top: 94vh;
     padding-bottom: 33vh;
     color: var(--text-main);
 }
@@ -216,7 +252,8 @@ span,
 h2,
 #intro {
     font-family: 'Times New Roman';
-    line-height: 1.3;
+    line-height: 1.4;
+    word-wrap: break-word;
 }
 
 ul {
@@ -224,6 +261,34 @@ ul {
     padding: 0;
 }
 
-.proj {
+.meta {
     display: block;
+}
+
+.proj-title {
+    display: inline-block;
+    float: left;
+}
+
+.proj-meta {
+    display: inline-block;
+    float: right;
+}
+
+.proj-desc {
+    display: inline-block;
+    width: 100%;
+}
+
+p:nth-child(n+2) {
+    text-indent: 1.4em;
+}
+
+p {
+    margin: auto;
+}
+
+.back {
+    opacity: 1;
+    transition: opacity 1s;
 }
