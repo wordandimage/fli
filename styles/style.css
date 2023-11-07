@@ -36,7 +36,9 @@
 
     main,
     nav {
-        -webkit-text-stroke-width: 0.3px;
+        text-shadow: -0.3px -0.3px 0 white, 0.3px -0.3px 0 white, -0.3px 0.3px 0 white, 0.3px 0.3px 0 white;
+-webkit-text-stroke: 0.3px ;
+
     }
 
     p:first-child {
