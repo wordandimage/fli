@@ -30,8 +30,13 @@
     li,
     #intro {
         font-size: 16px;
+        letter-spacing: .25px;
     }
-,
+
+    main {
+        -webkit-text-stroke-width: 0.4px;
+    }
+
     p:first-child {
         margin-top: 12px;
     }
@@ -85,6 +90,11 @@
     li,
     #intro {
         font-size: 22px;
+        letter-spacing: 0.4px;
+    }
+
+    main {
+        -webkit-text-stroke-width: 0.6px;
     }
 
     p:first-child {
@@ -140,6 +150,11 @@
     li,
     #intro {
         font-size: 32px;
+        letter-spacing: 0.6px;
+    }
+
+    main {
+        -webkit-text-stroke-width: 0.8px;
     }
 
     p:first-child {
