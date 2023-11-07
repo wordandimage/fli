@@ -199,6 +199,7 @@ body {
     font-smooth: always;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: geometricPrecision;
 }
 
 nav {
