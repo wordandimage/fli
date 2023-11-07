@@ -189,6 +189,12 @@
     }
 }
 
+body {
+    font-smooth: always;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 nav {
     display: block;
     color: var(--text-alt);
