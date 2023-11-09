@@ -1,7 +1,7 @@
 :root {
     --text-main: #000000;
     --text-alt: #F00000;
-    --bg-color: #FFE7E7;
+    --bg-color: #ffcfcf;
 }
 
 @font-face {
@@ -14,6 +14,14 @@
         margin: auto;
         width: calc(100% - 40px);
         padding: 0px 20px 0px 20px;
+    }
+
+    nav {
+        padding: 20px;
+    }
+
+    main {
+        margin-top: calc(100svh - 36px);
     }
 
     .item {
@@ -45,28 +53,18 @@
     }
 
     h3 {
-        margin-top: 12px !important; 
-    }
-
-    .fixed-left {
-        top: 20px;
-        left: 20px;
+        margin-top: 12px !important;
     }
     
-    .fixed-right {
-        top: 20px;
-        right: 20px;
-    }
-
     ul {
         margin: 0px 0px 0px 20px;
     }
 
     .proj-title {
         width: calc(50% - 10px);
-        
+
     }
-    
+
     .proj-meta {
         width: calc(50% - 10px);
     }
@@ -76,6 +74,14 @@
     body {
         margin: auto;
         width: 680px;
+    }
+
+    nav {
+        padding: 40px;
+    }
+
+    main {
+        margin-top: calc(100svh - 48px);
     }
 
     .item {
@@ -110,27 +116,15 @@
         margin-top: 18px !important;
     }
 
-
-
-    /* .fixed-left {
-        top: 40px;
-        left: 40px;
-    }
-    
-    .fixed-right {
-        top: 40px;
-        right: 40px;
-    } */
-
     ul {
         margin: 0px 0px 0px 44px;
     }
 
     .proj-title {
         width: calc(50% - 22px);
-        
+
     }
-    
+
     .proj-meta {
         width: calc(50% - 22px);
     }
@@ -140,6 +134,14 @@
     body {
         margin: auto;
         width: 1000px;
+    }
+
+    nav {
+        padding: 40px;
+    }
+
+    main {
+        margin-top: calc(100svh - 70px);
     }
 
     .item {
@@ -174,25 +176,15 @@
         margin-top: 24px !important;
     }
 
-    .fixed-left {
-        top: 40px;
-        left: 40px;
-    }
-    
-    .fixed-right {
-        top: 40px;
-        right: 40px;
-    }
-
     ul {
         margin: 0px 0px 0px 64px;
     }
 
     .proj-title {
         width: calc(50% - 32px);
-        
+
     }
-    
+
     .proj-meta {
         width: calc(50% - 32px);
     }
@@ -208,15 +200,15 @@ body {
 
 nav {
     display: flex;
-    flex-flow:row wrap;
-    justify-content:space-between;
+    flex-flow: row wrap;
+    justify-content: space-between;
     color: var(--text-alt);
-    position:fixed;
-        padding:40px;
-        width:100vw;
-        box-sizing:border-box;
-        top:0;
-        left:0;
+    position: fixed;
+    /* padding: 40px; */
+    width: 100vw;
+    box-sizing: border-box;
+    top: 0;
+    left: 0;
 }
 
 /* .fixed-left,
@@ -242,19 +234,18 @@ header h1 {
 main {
     width: 100%;
     position: relative;
-    margin-top: calc(100svh - 40px);
     color: var(--text-main);
-   
+
 }
 
-main::after{
-    content:'';
-    display:block;
-    min-height:100px;
+main::after {
+    content: '';
+    display: block;
+    min-height: 100px;
 }
 
 details>summary {
-    cursor:pointer;
+    cursor: pointer;
     list-style: none;
 }
 
@@ -274,7 +265,7 @@ h1 {
 h2 {
     font-weight: normal;
     margin: auto;
-    font-style:italic;
+    font-style: italic;
 }
 
 h3 {
@@ -340,7 +331,9 @@ p {
 
 .back {
     opacity: 1;
-    transition: opacity 1s;
+    transition: opacity;
+    color: red;
+    transition: color 0.5s linear;
 }
 
 a {
