@@ -1,0 +1,8 @@
+{% macro import(page_name)  %}
+    {% set post = collections.all | find_post(page_name) %}
+    <details>
+        <summary><h2>{{ post.data.title }}</h2></summary>
+        {{ post.content | safe }}
+    </details>
+{% endmacro %}
+

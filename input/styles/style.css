@@ -6,8 +6,11 @@
 
 @font-face {
     font-family: pantasia;
-    src: url(../fonts/pantasia-trial.otf);
+    src: url(../assets/fonts/pantasia-trial.otf);
 }
+
+
+
 
 @media (max-width: 799px) {
     body {
@@ -28,14 +31,14 @@
         margin-top: 40px;
     }
 
-    h1 {
+    h1,h2 {
         font-size: 32px;
     }
 
     p,
     span,
-    h2,
     h3,
+    h4,
     li,
     #intro,
     nav {
@@ -52,7 +55,7 @@
         margin-top: 12px;
     }
 
-    h3 {
+    h4 {
         margin-top: 12px !important;
     }
     
@@ -88,14 +91,14 @@
         margin-top: 60px;
     }
 
-    h1 {
+    h1,h2 {
         font-size: 44px;
     }
 
     p,
     span,
-    h2,
     h3,
+    h4,
     li,
     #intro,
     nav {
@@ -112,7 +115,7 @@
         margin-top: 18px;
     }
 
-    h3 {
+    h4 {
         margin-top: 18px !important;
     }
 
@@ -148,14 +151,14 @@
         margin-top: 96px;
     }
 
-    h1 {
+    h1, h2 {
         font-size: 64px;
     }
 
     p,
     span,
-    h2,
     h3,
+    h4,
     li,
     #intro,
     nav {
@@ -172,7 +175,7 @@
         margin-top: 24px;
     }
 
-    h3 {
+    h4 {
         margin-top: 24px !important;
     }
 
@@ -226,7 +229,7 @@ header {
     transform: translateX(-50%) translateY(-50%);
 }
 
-header h1 {
+h1 {
     color: var(--text-alt);
     display: block;
 }
@@ -253,7 +256,7 @@ details>summary::-webkit-details-marker {
     display: none;
 }
 
-h1 {
+h1,h2 {
     margin: auto;
     text-align: center;
     font-family: pantasia;
@@ -262,33 +265,35 @@ h1 {
     line-height: 1.45;
 }
 
-h2 {
+h3 {
     font-weight: normal;
     margin: auto;
     font-style: italic;
 }
 
-h3 {
+h4 {
     margin: auto;
     font-weight: normal;
 }
 
-summary h1 {
+h2 {
     text-decoration: underline;
     text-decoration-thickness: .036em;
     text-underline-offset: 0.14em;
     margin-top: 1.25em;
+    
 }
 
-details[open] summary h1 {
+details[open] h2 {
     transform: skew(0deg, -14.036deg);
     text-decoration: none;
     margin-top: 1.25em;
+    margin-bottom: 40px;
 }
 
 p,
 span,
-h2,
+h3,
 #intro,
 ul,
 li {
@@ -321,9 +326,20 @@ ul {
     width: 100%;
 }
 
-p:nth-child(n+2) {
+/* p:nth-child(n+2) {
+    text-indent: 1.4em;
+} */
+
+p + p {
     text-indent: 1.4em;
 }
+
+
+hr{
+    opacity:0;
+    margin:20px 0px;
+}
+
 
 p {
     margin: auto;

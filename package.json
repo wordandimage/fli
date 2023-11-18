@@ -1,0 +1,22 @@
+{
+  "name": "fli-website",
+  "version": "1.0.0",
+  "description": "Website for For the Love of Inquiry",
+  "main": ".eleventy.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wordandimage/fli.git"
+  },
+  "author": "Word & Image",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wordandimage/fli/issues"
+  },
+  "homepage": "https://github.com/wordandimage/fli#readme",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1"
+  }
+}
