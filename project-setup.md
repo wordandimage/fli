@@ -26,4 +26,4 @@ A few notes:
 
 ![](demo/orderfield.png)
 
-* I realize I never really explained fully how `section.njk` works. This file defines a nunjucks "macro", which is [documented here](https://mozilla.github.io/nunjucks/templating.html#macro). As it says, these are sort of analogous to functions in JS. They take input parameters (in this case, the page name), and output templatized HTML using that information.
+* I realize I never really explained fully how `section.njk` works. This file defines a nunjucks `macro` ([documented here](https://mozilla.github.io/nunjucks/templating.html#macro)) called "import". As the docs say, macros are sort of analogous to functions in JS. They take input parameters (in this case, the page name), and output templatized HTML using that information.
