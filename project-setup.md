@@ -18,10 +18,12 @@ To break down what is happening here:
 
 3. `{% for ____ in ____ %} ... {% endfor %}` is [Nunjucks syntax](https://mozilla.github.io/nunjucks/templating.html#for) for a _for_ loop. It loops through every project in the array, and generates whatever HTML you want it to, while inserting data for each project in the loop. You can see I added the project title, location, and rendered markdown content as an example. 
 
-A couple notes:
+A few notes:
 
 * By doing the project templating directly in `projects.md`, we don't need to change anything about `_includes/section.njk`. We can also actually delete `_includes/project.njk`, because it never gets used for anything.
 
 * In the demo above, projects are sorted according to Eleventy's default sorting method (which I believe is file creation date). I would start by just getting this working. But in the future we can set it to sort by project date, or allow the team to set a custom order using a number field in the front matter of each project:
 
 ![](demo/orderfield.png)
+
+* I realize I never really explained fully how `section.njk` works. This file defines a nunjucks "macro", which is [documented here](https://mozilla.github.io/nunjucks/templating.html#macro). As it says, these are sort of analogous to functions in JS. They take input parameters (in this case, the page name), and output templatized HTML using that information.
