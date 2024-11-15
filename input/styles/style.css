@@ -1,6 +1,7 @@
 :root{
-    --color-background:#FFDEDE;
-    --color-pop:#FF0000;
+    /* --color-background:#FFDEDE; */
+    --color-background:white;
+    --color-pop:#eb5050;
     --color-solid:#010101;
     --skew:-14deg;
     --page-margin:20px;
@@ -31,12 +32,23 @@ main{
     padding:var(--page-margin);
     box-sizing:border-box;
     position:relative;
-
+    overflow:hidden;
+    opacity:0;
     &::after{
         content:'';
         display:block;
         grid-column:1/13;
         height:calc(var(--horizontal-spacing) * 1);
+    }
+}
+
+main.mounted{
+    opacity:1;
+}
+
+@media(scripting:none){
+    main{
+        opacity:1;
     }
 }
 
@@ -131,16 +143,20 @@ svg.fly-line{
 #fly-path .aggregate{
     stroke:var(--color-pop);
     stroke-dasharray:1;
-    
 }
 
 #fly-path .mask{
     stroke: white;
     stroke-width: 10;
-    
     stroke-dasharray: var(--l);
     stroke-dashoffset: var(--l);
-    animation: buzz 10s linear forwards;
+}
+
+
+#fly-path-wrapper.buzz{
+    & .mask{
+        animation: buzz 10s linear forwards;
+    }
 }
 
 @keyframes buzz {
@@ -182,19 +198,32 @@ svg.fly-line{
 }
 
 #fly{
-    width:3rem;
-    position:absolute;
-    offset-path: url(#trace);
-    offset-rotate:45deg;
-    /* offset-path:path("M 5 5 m -4, 0 a 4,4 0 1,0 8,0 a 4,4 0 1,0 -8,0"); */
-    /* offset-distance:100%; */
-    opacity:0;
-    object-fit:contain;
+    --s:2.5rem;
     
+    position:absolute;
+    top:0;
+    left:0;
+    --buzz-x-absolute:1;
+    --buzz-y-absolute:0;
+    --buzz-x:calc(var(--page-size) * var(--buzz-x-absolute));
+    --buzz-y:calc(var(--page-size) * var(--buzz-y-absolute));
+    transform:translate(var(--buzz-x),var(--buzz-y));
+    
+    z-index:20;
+    
+    & svg{
+        width:var(--s);
+        height:var(--s);
+        object-fit:contain;
+        transform:translate(-50%,-50%) rotate(var(--buzz-direction));
+    }
+
     & path{
         fill:var(--color-pop);
     }
 }
+
+
 
 #fly-path{
     --l:1000;
