@@ -1,8 +1,10 @@
+console.log(base_url)
+
 let nav_items = [
-  {link:"/",title:"Home"},
-  {link:"/projects",title:"Projects"},
-  {link:"/methods",title:"Methods"},
-  {link:"/contact",title:"Contact"}
+  {link:base_url,title:"Home"},
+  {link:base_url+"projects",title:"Projects"},
+  {link:base_url+"methods",title:"Methods"},
+  {link:base_url+"contact",title:"Contact"}
 ]
 let dom = {};
 
