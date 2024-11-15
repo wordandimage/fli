@@ -133,7 +133,7 @@ svg.fly-line{
     & line,
     & polyline{
         stroke-width:2px;
-        stroke-width:0.2;
+        stroke-width:0.15;
         stroke-linecap: round;
         stroke-linejoin: round;
         fill:none;
