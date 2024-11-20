@@ -1,11 +1,14 @@
 console.log(base_url)
 
-let nav_items = [
-  {link:base_url,title:"Home"},
-  {link:base_url+"projects",title:"Projects"},
-  {link:base_url+"methods",title:"Methods"},
-  {link:base_url+"contact",title:"Contact"}
-]
+let nav_item_segments = [];
+
+
+// [
+//   {link:base_url,title:"Home"},
+//   {link:base_url+"projects",title:"Projects"},
+//   {link:base_url+"methods",title:"Methods"},
+//   {link:base_url+"contact",title:"Contact"}
+// ]
 let dom = {};
 
 // fly path related variables
@@ -26,6 +29,8 @@ function init() {
   dom.article = dom.main.querySelector('article');
   window.addEventListener('resize',handle_resize);
   document.querySelector('#toggle-nav').addEventListener('click',toggle_menu);
+
+  nav_item_segments=Array.from(document.querySelectorAll('.nav-link-wrapper'));
   
   // fly path setup
   generate_fly_path();
@@ -86,7 +91,7 @@ function generate_fly_path(algorithm = 'step-by-step') {
       
       let min_distance = 4;
       // let crosshair={x:6,y:0};
-      let n = Math.max(10, nav_items.length);
+      let n = Math.max(10, nav_item_segments.length);
       let forwards = false;
 
       let keep_generating=(i)=>{
@@ -143,24 +148,24 @@ function render_fly_path(){
 
   for(let i =1; i<fly_path.points.length;i++){
     
-    let item=nav_items[i-1]
-    let segment=generate_segment(fly_path.points[i-1], fly_path.points[i]);
+    let item=nav_item_segments[i-1]
+    let segment=generate_segment(fly_path.points[i-1], fly_path.points[i],item);
     segment.style.setProperty('--i', i);
-    if(item){
-      let link=document.createElement('a');
-      link.classList.add('menu-link')
-      link.classList.add('pantasia-large');
-      link.innerText=item.title;
-      link.href=item.link;
-      segment.appendChild(link);
-    }
+    // if(item){
+    //   let link=document.createElement('a');
+    //   link.classList.add('menu-link')
+    //   link.classList.add('pantasia-large');
+    //   link.innerText=item.title;
+    //   link.href=item.link;
+    //   segment.appendChild(link);
+    // }
   }
 }
 
 
-function generate_segment(start = { x: 0, y: 0 }, end = { x: 0, y: 0 }) {
+function generate_segment(start = { x: 0, y: 0 }, end = { x: 0, y: 0 },existing_node) {
   let x_sorted_ascending = [start.x, end.x].sort((a, b) => a - b);
-  let div = document.createElement('div');
+  let div = existing_node?existing_node:document.createElement('div');
   div.style.setProperty('--start-x', x_sorted_ascending[0] + 1);
   div.style.setProperty('--end-x', x_sorted_ascending[1] + 1);
   div.style.setProperty('--start-y', start.y + 1);
@@ -169,7 +174,7 @@ function generate_segment(start = { x: 0, y: 0 }, end = { x: 0, y: 0 }) {
 
   div.dataset.direction=start.x < end.x?"right":"left";
 
-  dom.nav.appendChild(div);
+  if(!existing_node) dom.nav.appendChild(div);
 
   return div;
 }
