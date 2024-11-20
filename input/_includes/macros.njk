@@ -12,3 +12,63 @@
     </svg>
 </div>
 {% endmacro %}
+
+
+{% macro page_img(image,rootpath) %}
+    {% set aspect_ratio = imgdata.aspect_ratios["img-"+image.name] %}
+    {% set landscape_or_vertical = "vertical" if aspect_ratio>1 else "landscape" %}
+    <figure class="img {{landscape_or_vertical}}" data-aspect-ratio="{{aspect_ratio}}">
+        <picture>
+            <source type="image/webp" srcset="{{ rootpath }}assets/images/img@@{{image.name}}@@lg.webp" type="image/webp">
+            <source type="image/jpg" srcset="{{ rootpath }}assets/images/img@@{{image.name}}@@lg.jpg">
+            <img loading="lazy" src="{{ rootpath }}assets/images/img@@{{image.name}}@@lg.jpg">
+        </picture>
+        {% if image.caption %}
+            <figcaption class="mono small-caps">
+                <p>{{ image.caption | md | safe }}</p>
+            </figcaption>
+        {% endif %}
+        
+    </figure>
+
+{% endmacro %}
+
+
+{% macro content_loop(blocks,rootpath) %}
+    {% for block in blocks %}
+        {% if block.type=='image' %}
+            <div class="block image-wrapper" data-size="{{block.value.options}}">
+                {{ page_img(block.value,rootpath) }}
+            </div>
+        {% elseif block.type=='gallery' %}
+            <div class="block gallery {{ block.value.options | join(' ') }}" data-length="{{block.value.items.length}}">
+                <div class="item-wrapper">
+                    {% for item in block.value.items %}
+                        {% if item.type == 'image' %}
+                            <div class="slide {{active if loop.index0 == 0 }}" data-i="{{loop.index0}}">
+                            {{ page_img(item.value,rootpath) }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% elseif block.type=='list' %}
+            <div class="block list">
+                <ul>
+                    {{ macros.list_items(block.value.items) }}
+                </ul>
+            </div>
+        {% else %}
+        
+            <div 
+                data-blocktype="{{block.type}}" 
+                class='block {{"anchor-heading" if block.type=='heading_2'}}' {% if block.type=='heading_2'%} 
+                id="jump-to-{{block.value | replace('##','') | slugify}}" {% endif %}
+            >
+                {{ block.value | md | safe }}
+            </div>
+                
+        {% endif %}
+    
+    {% endfor %}
+{% endmacro %}
