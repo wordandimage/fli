@@ -3,6 +3,8 @@ const marked = require('marked');
 marked.use({mangle: false,headerIds: false});
 
 module.exports = function(eleventyConfig) {
+  
+
 
   eleventyConfig.addDataExtension("md", contents => {html:marked.parse(contents)});
 

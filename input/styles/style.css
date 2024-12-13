@@ -10,6 +10,7 @@
     --page-size:calc(100vw - (var(--page-margin) * 2 + var(--scrollbar-width)) );
     --fs-heading:25px;
     --fs-body:20px;
+    --fs-caption:10px;
     --horizontal-spacing:25px;
 
     --hundredsvh:100vh;
@@ -57,10 +58,26 @@ article{
     width:100%;
     color:var(--color-solid);
     --fg:var(--color-solid);
-    
+    --g:15px;
+    --h-spacing:calc(var(--g) * 3);
     
 }
 
+.metadata{
+    display:inline-block;
+}
+
+
+.metadata .box{
+    border:0.08rem solid var(--fg);
+    display:inline-block;
+    padding:0.09rem 0.3rem;
+    margin: 0;
+}
+.metadata.tag .box{
+    padding:0.1rem 0.5rem;
+    border-radius: 1rem;
+}
 
 
 h1{
@@ -85,6 +102,17 @@ article h2,
     }
     
 }
+
+.pantasia-tiny{
+    font-family:'pantasia';
+    font-size:var(--fs-caption);
+}
+
+.tiny-label{
+    text-transform:uppercase;
+    margin-bottom:calc(var(--page-size) * 0.004);
+}
+
 
 article figure{
     display:flex;
@@ -127,7 +155,8 @@ article p:not(h2 p){
 
     & line{
         stroke:var(--color-solid);
-        stroke-width:0.1rem;
+        stroke-width:0.08rem;
+        /* stroke-width:0.5rem; */
         stroke-linecap: round;
         stroke-linejoin: round;
     }
@@ -155,24 +184,24 @@ svg.fly-line{
     stroke: white;
     stroke-width: 10;
     stroke-dasharray: var(--l);
-    stroke-dashoffset: var(--l);
+    stroke-dashoffset:calc(var(--l) - var(--buzz));
 }
 
 
-#fly-path-wrapper.buzz{
+/* #fly-path-wrapper.buzz{
     & .mask{
-        animation: buzz 10s linear forwards;
+        stroke-dashoffset: 0;
     }
-}
+} */
 
-@keyframes buzz {
+/* @keyframes buzz {
     from {
         stroke-dashoffset: var(--l);
     }
     to {
         stroke-dashoffset: 0;
     }
-}
+} */
 
 #fly-path-wrapper{
     width:100%;
@@ -233,6 +262,7 @@ svg.fly-line{
 
 #fly-path{
     --l:1000;
+    --buzz:0;
 }
 
 
@@ -246,11 +276,17 @@ nav .segment.nav-link-wrapper{
     z-index:30;
 }
 
+
+
 nav .segment{
     pointer-events:none;
     a{
         pointer-events:all;
     }
+}
+
+main[data-menu_open="false"] .segment a{
+    pointer-events:none;
 }
 
 
@@ -335,6 +371,7 @@ main[data-menu_open="true"] nav{
     :root{
         --fs-heading:30px;
         --fs-body:24px;
+        --fs-caption:12px;
     }
 }
 
@@ -343,6 +380,7 @@ main[data-menu_open="true"] nav{
     :root{
         --fs-heading:calc(var(--page-size) * 0.026);
         --fs-body:calc(var(--page-size) * 0.02);
+        --fs-caption:calc(var(--page-size) * 0.011);
         --horizontal-spacing:calc(var(--page-size) * 0.015);
     }
     
@@ -365,6 +403,9 @@ main[data-menu_open="true"] nav{
     article{
         display:grid;
         grid-template-columns:repeat(12,1fr);
+        --g:calc(var(--page-size) * 0.01);
+        --h-spacing:calc(var(--g) * 3);
+        column-gap:var(--g);
         grid-template-rows:auto;
         height:fit-content;
     }

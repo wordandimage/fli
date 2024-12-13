@@ -64,130 +64,138 @@ async function fetch_database(database_id,{include_content=true,sort_prop}={}){
       
         for(let prop of Object.keys(a.properties)){
             let b=a.properties[prop];
-            switch(b.type){
-                case 'title':
-                    properties[prop]= {
-                        type:'title',
-                        value:b.title[0]?.plain_text || ''
-                    }
-                    break;
-                case 'number':
-                    properties[prop]=  {
-                        type:'number',
-                        value:b.number
-                    }
-                    break;
-                case 'unique_id':
-                    properties[prop]=  {
-                        type:'number',
-                        value:b.unique_id.number
-                    }
-                    break;
-                case 'select':
-                    properties[prop]=  {
-                        type:'select',
-                        single:true,
-                        value:[b.select?.name || '']
-                    }
-                    break;
-                case 'rich_text':
-                    properties[prop]=  {
-                        type:'rich_text',
-                        value:b.rich_text
-                    }
-                    break;
-                case 'files':
-                    
-                    let input_file_array=b.files;
-
-                    let output_file_array=[];
-
-                    for(let file of input_file_array){
+            try{
+                switch(b.type){
+                    case 'title':
+                        properties[prop]= {
+                            type:'title',
+                            value:b.title[0]?.plain_text || ''
+                        }
+                        break;
+                    case 'number':
+                        properties[prop]=  {
+                            type:'number',
+                            value:b.number
+                        }
+                        break;
+                    case 'unique_id':
+                        properties[prop]=  {
+                            type:'number',
+                            value:b.unique_id.number
+                        }
+                        break;
+                    case 'select':
+                        properties[prop]=  {
+                            type:'select',
+                            single:true,
+                            value:[b.select?.name || '']
+                        }
+                        break;
+                    case 'rich_text':
+                        properties[prop]=  {
+                            type:'rich_text',
+                            value:b.rich_text
+                        }
+                        break;
+                    case 'files':
                         
-                        let ext=file.type=='file'?extension(file.name):{};
-                        let name=slugify((file.name || '').replace(/\.[^/.]+$/, ''));
-                        if(file.type=='file'&&ext.acceptable){
-                            // save to array of file data for this database cell
-                            output_file_array.push({
-                                type:'image',
-                                name
-                            })
-
-                            // add to queue to download and process images as needed
-                            file_processing_queue.push({
-                                file_type:'image',
-                                url:file.file.url,
-                                name,
-                                sizes:['sm','md','lg','xl']
-                            })
-
-                       
-                        }else if(file.type!=='external'){
-                            // save to array of file data for this database cell
-                            output_file_array.push({
-                                type:'attachment',
-                                extension:ext.value.replace('.',''),
-                                name
-                            })
-
-                            // add to queue to download (no processing for non-images)
-                            file_processing_queue.push({
-                                file_type:'attachment',
-                                extension:ext.value.replace('.',''),
-                                url:file.file.url,
-                                name
-                            })
-                        }else{
-                            // save link to array
-                            output_file_array.push({
-                                type:'embed',
-                                url:file.external.url
-                            })
+                        let input_file_array=b.files;
+    
+                        let output_file_array=[];
+    
+                        for(let file of input_file_array){
+                            
+                            let ext=file.type=='file'?extension(file.name):{};
+                            let name=slugify((file.name || '').replace(/\.[^/.]+$/, ''));
+                            if(file.type=='file'&&ext.acceptable){
+                                // save to array of file data for this database cell
+                                output_file_array.push({
+                                    type:'image',
+                                    name
+                                })
+    
+                                // add to queue to download and process images as needed
+                                file_processing_queue.push({
+                                    file_type:'image',
+                                    url:file.file.url,
+                                    name,
+                                    sizes:['sm','md','lg','xl']
+                                })
+    
+                           
+                            }else if(file.type!=='external'){
+                                // save to array of file data for this database cell
+                                output_file_array.push({
+                                    type:'attachment',
+                                    extension:ext.value.replace('.',''),
+                                    name
+                                })
+    
+                                // add to queue to download (no processing for non-images)
+                                file_processing_queue.push({
+                                    file_type:'attachment',
+                                    extension:ext.value.replace('.',''),
+                                    url:file.file.url,
+                                    name
+                                })
+                            }else{
+                                // save link to array
+                                output_file_array.push({
+                                    type:'embed',
+                                    url:file.external.url
+                                })
+                            }
+                            
+                        }
+                     
+                        properties[prop]=  {
+                            type:'files',
+                            value:output_file_array
+                        }
+                        break;
+                    case 'url':
+                        let urlval=b[b.type];
+                        if(urlval&&!urlval.includes('http://')&&!urlval.includes('https://')&&!urlval.includes('mailto:')) urlval='https://'+urlval;
+                        properties[prop]=  {
+                            type:b.type,
+                            value:urlval
+                        }
+                        break;
+                    case 'multi_select':
+                        properties[prop]=  {
+                            type:b.type,
+                            value:b.multi_select?.map(a=>a.name)
+                        }
+                        break;
+                    case 'date':
+                        
+                        if(b.date){
+                            let {start,end} = b.date;
+    
+                            let day_only=(d)=>{
+                                if(!d) return d;
+                                else return d.split('T')[0]
+                            }
+    
+                            properties[prop]=  {
+                                type:b.type,
+                                value:{start:day_only(start),end:day_only(end)}
+                            }
                         }
                         
-                    }
-                 
-                    properties[prop]=  {
-                        type:'files',
-                        value:output_file_array
-                    }
-                    break;
-                case 'url':
-                    let urlval=b[b.type];
-                    if(!urlval.includes('http://')&&!urlval.includes('https://')&&!urlval.includes('mailto:')) urlval='https://'+urlval;
-                    properties[prop]=  {
-                        type:b.type,
-                        value:urlval
-                    }
-                    break;
-                case 'multi_select':
-                    properties[prop]=  {
-                        type:b.type,
-                        value:b.multi_select?.map(a=>a.name)
-                    }
-                    break;
-                case 'date':
-                    
-                    let {start,end} = b.date;
-
-                    let day_only=(d)=>{
-                        if(!d) return d;
-                        else return d.split('T')[0]
-                    }
-
-                    properties[prop]=  {
-                        type:b.type,
-                        value:{start:day_only(start),end:day_only(end)}
-                    }
-                    break;
-                default:
-                    properties[prop]=  {
-                        type:b.type,
-                        value:b[b.type]
-                    }
+                        break;
+                    default:
+                        properties[prop]=  {
+                            type:b.type,
+                            value:b[b.type]
+                        }
+                }
+            }catch(e){
+                console.log(e,prop,b);
             }
+            
         }
-  
+
         return {
             item_id:a.id,
             properties
@@ -368,8 +376,22 @@ module.exports = async function load_data({do_image_processing=false}={}){
     console.log('   compiling project metadata')
     let project_metadata={event_types:[],tags:[]};
     for(let project of data.projects){
-        // TK
-        
+        project_metadata.event_types=combine_unique(
+            project_metadata.event_types,
+            project.properties.event_type.value
+        )
+        project_metadata.tags=combine_unique(
+            project_metadata.tags,
+            project.properties.tags.value
+        )
+
+    }
+
+    function combine_unique(arr,new_items){
+        return [
+            ...arr,
+            ...new_items.filter(a=>a && !arr.includes(a))
+        ]
     }
 
     let cms={

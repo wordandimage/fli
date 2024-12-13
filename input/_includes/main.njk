@@ -6,6 +6,7 @@ landing: false
 {% import 'macros.njk' as macros with context %}
 {% set base_url="BASE_URL" | env%}
 {% set rootpath="" if landing else "../" %}
+{% set template = "home" if landing else pg.properties.template.value[0] %}
 
 {# {% set testing = cms.pages[0] | console_debug("cms") %} #}
 {% set homepage_content = cms.pages | notion_data_find_in_select("template","home") %}
@@ -17,6 +18,9 @@ landing: false
         <title>For the Love of Inquiry {%if title%}| {{title}}{% endif %}</title>
         <link rel="stylesheet" type="text/css" href="{{rootpath}}styles/clearstyle.css">
         <link rel="stylesheet" type="text/css" href="{{rootpath}}styles/style.css">
+        {% if template == 'projects'%}
+            <link rel="stylesheet" type="text/css" href="{{rootpath}}styles/projects.css">
+        {% endif %}
         <script>
             let base_url="{{base_url}}"
         </script>
@@ -70,8 +74,41 @@ landing: false
                     {% else %}
                         {% set pagetext = homepage_content.mdcontent %}
                     {% endif %}
-
-                    {{ macros.content_loop(pagetext) }}
+                    {% if landing or template == 'default' %}
+                        {{ macros.content_loop(pagetext) }}
+                    {% elif template == 'projects' %}
+                        <details id="filters">
+                            <summary class="noselect">Filters</summary>
+                            {% set test = cms.project_metadata | console_debug("tags") %}
+                            <div class="metadata-group">
+                                <h3 class="pantasia-tiny tiny-label">Event Type:</h3>
+                                <menu>
+                                    {% for option in cms.project_metadata.event_types %}
+                                    {% set input_name = "toggle_event_type_" + (option | slugify) %}
+                                        <li class="metadata event-type filter-option"><input id="{{input_name}}" type="checkbox"><label class="box" for="{{input_name}}">{{option}}</label></li>
+                                    {% endfor %}
+                                </menu>
+                            </div>
+                            <div class="metadata-group">
+                                <h3 class="pantasia-tiny tiny-label">Tags:</h3>
+                                <menu>
+                                    {% for option in cms.project_metadata.tags %}
+                                    {% set input_name = "toggle_tag_" + (option | slugify) %}
+                                        <span class="metadata tag filter-option"><input id="{{input_name}}" type="checkbox"><label class="box" for="{{input_name}}">{{option}}</label></span>
+                                    {% endfor %}
+                                </menu>
+                            </div>
+                        </details>
+                        <div id="projects">
+                            {% for project in cms.projects %}
+                                <div class="project">
+                                    {{project.properties.title.value}}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        
+                    {% endif %}
+                    
                 </article>
             </main>
         </body>

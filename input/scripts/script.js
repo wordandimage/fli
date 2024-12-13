@@ -3,12 +3,6 @@ console.log(base_url)
 let nav_item_segments = [];
 
 
-// [
-//   {link:base_url,title:"Home"},
-//   {link:base_url+"projects",title:"Projects"},
-//   {link:base_url+"methods",title:"Methods"},
-//   {link:base_url+"contact",title:"Contact"}
-// ]
 let dom = {};
 
 // fly path related variables
@@ -64,6 +58,9 @@ function toggle_menu(){
   dom.main.dataset.menu_open=open;
   dom.nav.setAttribute('aria-hidden',!open)
   dom.article.setAttribute('aria-hidden',open);
+
+  flight.end.position=open?init_fly_position:1;
+
 }
 
 
@@ -130,35 +127,28 @@ function render_fly_path(){
   // generate svg polyline points from provided fly points
   const polyline_points=fly_path.points.map((a)=>`${a.x * col},${a.y * row}`).join(' ');
 
-  // generate path for css offset-path of fly animation
   svg_box_height=fly_path.points.at(-1).y*row;
-  document.querySelector('#fly-path').setAttribute('viewBox',`0 0 100 ${svg_box_height}`);
   dom.polyline=document.querySelector('#fly-path polyline');
   dom.fly=document.querySelector('#fly');
-  
-
-  
-  // document.querySelector('#fly').style.setProperty('offset-path',`polygon(${offset_path_points})`);
+  dom.flypath=document.querySelector('#fly-path');
+  dom.flypath.setAttribute('viewBox',`0 0 100 ${svg_box_height}`);
   
   dom.polyline.setAttribute('points',polyline_points);
   polyline_length=dom.polyline.getTotalLength();
-  document.querySelector('#fly-path').style.setProperty('--l',polyline_length);
+  full_duration=ms_per_unit * polyline_length;
+  init_fly_position=10/polyline_length;
+  flight.current.position=init_fly_position;
+  flight.end.position=1;
+
+
+  dom.flypath.style.setProperty('--l',polyline_length);
   document.querySelector('#fly-path-wrapper').style.setProperty('--h-w-ratio',svg_box_height / 100);
 
 
   for(let i =1; i<fly_path.points.length;i++){
-    
     let item=nav_item_segments[i-1]
     let segment=generate_segment(fly_path.points[i-1], fly_path.points[i],item);
     segment.style.setProperty('--i', i);
-    // if(item){
-    //   let link=document.createElement('a');
-    //   link.classList.add('menu-link')
-    //   link.classList.add('pantasia-large');
-    //   link.innerText=item.title;
-    //   link.href=item.link;
-    //   segment.appendChild(link);
-    // }
   }
 }
 
@@ -183,8 +173,11 @@ function generate_segment(start = { x: 0, y: 0 }, end = { x: 0, y: 0 },existing_
 let buzz_mode=false;
 let buzz_pos=0;
 
-// 10,000ms -> 10s
+
 let full_duration=10 * 1000;
+let ms_per_unit=18;
+let init_fly_position=0;
+
 let full_distance=1;
 let flight={
   current:{
@@ -227,13 +220,10 @@ function position_fly(){
 
   dom.fly.style.setProperty('--buzz-x-absolute',path_point.x/100);
   dom.fly.style.setProperty('--buzz-y-absolute',path_point.y/100);
+  dom.flypath.style.setProperty('--buzz',polyline_length * flight.current.position);
   if(flight.current.position < 0.999) dom.fly.style.setProperty('--buzz-direction',tangent_angle+'rad');
-  
-  // console.log(path_point);
-  // polyline_length
 
   if(buzz_mode && elapsed<flight.duration){
     requestAnimationFrame(position_fly);
   }
-  // let pos=document.querySelector('#fly-path-wrapper .mask').getComputedStyle()
 }
