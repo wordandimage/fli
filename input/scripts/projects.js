@@ -17,6 +17,15 @@ function projects_init(){
     for(let filter of filters){
         filter.addEventListener('change',refresh_projects_filter)
     }
+
+    document.querySelector('#clear-filters').addEventListener('click',clear_filters)
+    document.querySelector('#filters summary').addEventListener('click',clear_filters)
+
+}
+
+function clear_filters(){
+    for(let filter of filters) filter.checked=false;
+    refresh_projects_filter();
 }
 
 function refresh_projects_filter(){
@@ -48,6 +57,9 @@ function refresh_projects_filter(){
     document.querySelectorAll('.project .metadata.tag').forEach((node)=>{
         node.classList.toggle('match',selected_tags.includes(node.dataset.item))
     })
+
+    document.querySelector('#clear-filters').classList.toggle('active',selected_event_types.length+selected_tags.length>0);
+    document.querySelector('#clear-filters').disabled=!(selected_event_types.length+selected_tags.length>0);
 }
 
 window.addEventListener('load',projects_init);

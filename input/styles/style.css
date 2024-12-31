@@ -343,7 +343,8 @@ main[data-menu_open="true"] #toggle-nav{
 
 
 
-button{
+button,
+summary{
     --fg:var(--color-pop);
     color:var(--color-pop);
 }

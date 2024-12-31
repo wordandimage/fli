@@ -1,11 +1,43 @@
 #filters{
     margin-bottom:var(--v-spacing);
+    position:relative;
 }
 
 #filters summary{
     color:var(--color-pop);
     cursor:pointer;
 }
+
+#clear-filters{
+    position:absolute;
+    top:0;
+    /* 2.8rem based on width of .close-icon */
+    left:calc(2.8rem + var(--g) * 2);
+    opacity:0;
+}
+
+#clear-filters.active{
+    opacity:1;
+}
+
+#filters summary .close-icon{
+    display:none;
+    margin-top:0.25em;
+}
+
+#filters[open] summary{
+    margin-bottom:var(--v-spacing);
+
+    & span{
+        display:none;
+    }
+    
+    & .close-icon{
+        display:block;
+    }
+} 
+
+
 
 
 #filters summary::marker{
