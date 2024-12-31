@@ -11,7 +11,7 @@
     --fs-heading:25px;
     --fs-body:20px;
     --fs-caption:10px;
-    --horizontal-spacing:25px;
+    --article-item-spacing:25px;
 
     --hundredsvh:100vh;
     --hundredsvh:100svh;
@@ -40,7 +40,7 @@ main{
         content:'';
         display:block;
         grid-column:1/13;
-        height:calc(var(--horizontal-spacing) * 1);
+        height:calc(var(--article-item-spacing) * 1);
     }
 }
 
@@ -59,7 +59,7 @@ article{
     color:var(--color-solid);
     --fg:var(--color-solid);
     --g:15px;
-    --h-spacing:calc(var(--g) * 3);
+    --v-spacing:calc(var(--g) * 3);
     
 }
 
@@ -70,6 +70,7 @@ article{
 
 .metadata .box{
     border:0.08rem solid var(--fg);
+    background-color: var(--color-background);
     display:inline-block;
     padding:0.09rem 0.3rem;
     margin: 0;
@@ -131,20 +132,35 @@ article >*{
 }
 
 article .block{
-    margin-bottom:var(--horizontal-spacing);
+    margin-bottom:var(--article-item-spacing);
+}
+
+article .page-heading{
+    margin-bottom:var(--v-spacing);
 }
 
 .body-tnr,
-article p:not(h2 p){
+article p:not(h2 p),
+.short-label-tnr{
     font-size:var(--fs-body);
     line-height:1.3em;
     -webkit-text-stroke: 0.01em var(--fg);
 }
 
+.short-label-tnr{
+    line-height:1.2em;
+}
+
+.metadata-wrapper{
+    display:flex;
+    flex-flow:row wrap;
+    gap:0.4rem;
+}
+
 .block.image-wrapper{
     z-index:1;
     mix-blend-mode:multiply;
-    margin:calc(1.5rem - var(--horizontal-spacing)) 0 1.5rem;
+    margin:calc(1.5rem - var(--article-item-spacing)) 0 1.5rem;
 }
 
 .close-icon{
@@ -332,7 +348,8 @@ main[data-menu_open="true"] #toggle-nav{
 
 
 
-button{
+button,
+summary{
     --fg:var(--color-pop);
     color:var(--color-pop);
 }
@@ -381,7 +398,7 @@ main[data-menu_open="true"] nav{
         --fs-heading:calc(var(--page-size) * 0.026);
         --fs-body:calc(var(--page-size) * 0.02);
         --fs-caption:calc(var(--page-size) * 0.011);
-        --horizontal-spacing:calc(var(--page-size) * 0.015);
+        --article-item-spacing:calc(var(--page-size) * 0.015);
     }
     
     main{
@@ -389,7 +406,7 @@ main[data-menu_open="true"] nav{
         grid-template-areas:"main";
 
         &::after{
-            height:calc(var(--horizontal-spacing) * 4);
+            height:calc(var(--article-item-spacing) * 4);
         }
     }
 
@@ -404,7 +421,7 @@ main[data-menu_open="true"] nav{
         display:grid;
         grid-template-columns:repeat(12,1fr);
         --g:calc(var(--page-size) * 0.01);
-        --h-spacing:calc(var(--g) * 3);
+        --v-spacing:calc(var(--g) * 3);
         column-gap:var(--g);
         grid-template-rows:auto;
         height:fit-content;
