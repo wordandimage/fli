@@ -14,15 +14,20 @@
 {% endmacro %}
 
 
-{% macro page_img(image,rootpath) %}
+{% macro picture(name,rootpath,size="lg") %}
+<picture>
+    <source type="image/webp" srcset="{{ rootpath }}assets/images/img@@{{name}}@@{{size}}.webp" type="image/webp">
+    <source type="image/jpg" srcset="{{ rootpath }}assets/images/img@@{{name}}@@{{size}}.jpg">
+    <img loading="lazy" src="{{ rootpath }}assets/images/img@@{{name}}@@{{size}}.jpg">
+</picture>
+{% endmacro %}
+
+
+{% macro page_img(image,rootpath, size) %}
     {% set aspect_ratio = imgdata.aspect_ratios["img-"+image.name] %}
     {% set landscape_or_vertical = "vertical" if aspect_ratio>1 else "landscape" %}
     <figure class="img {{landscape_or_vertical}}" data-aspect-ratio="{{aspect_ratio}}">
-        <picture>
-            <source type="image/webp" srcset="{{ rootpath }}assets/images/img@@{{image.name}}@@lg.webp" type="image/webp">
-            <source type="image/jpg" srcset="{{ rootpath }}assets/images/img@@{{image.name}}@@lg.jpg">
-            <img loading="lazy" src="{{ rootpath }}assets/images/img@@{{image.name}}@@lg.jpg">
-        </picture>
+        {{ picture(image.name,rootpath) }}
         {% if image.caption %}
             <figcaption class="mono small-caps">
                 <p>{{ image.caption | md | safe }}</p>
@@ -32,6 +37,8 @@
     </figure>
 
 {% endmacro %}
+
+
 
 
 {% macro content_loop(blocks,rootpath) %}

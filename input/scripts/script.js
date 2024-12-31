@@ -22,6 +22,7 @@ function init() {
   dom.nav = dom.main.querySelector('nav');
   dom.article = dom.main.querySelector('article');
   window.addEventListener('resize',handle_resize);
+  handle_resize();
   document.querySelector('#toggle-nav').addEventListener('click',toggle_menu);
 
   nav_item_segments=Array.from(document.querySelectorAll('.nav-link-wrapper'));
@@ -66,6 +67,7 @@ function toggle_menu(){
 
 function handle_resize(){
   // https://stackoverflow.com/a/57748743
+  console.log('calculate scrollbar-width')
   let scrollbar_width=window.innerWidth - document.documentElement.clientWidth;
   document.documentElement.style.setProperty('--scrollbar-width', scrollbar_width + "px");
 }

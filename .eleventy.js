@@ -36,6 +36,17 @@ module.exports = function(eleventyConfig) {
     return value;
   });
 
+  eleventyConfig.addNunjucksFilter("notion_sort_by_date", function(array) {    
+    let sorted=array.toSorted((a,b)=>{
+      let a_date=a.properties.date?.value?.start || '';
+      let b_date=b.properties.date?.value.start || '';
+      let a_locale=a_date.replaceAll('-','')
+      let b_locale=a_date.replaceAll('-','')
+      return a_locale.localeCompare(b_locale);
+    })
+    return sorted;
+  });
+
   eleventyConfig.addNunjucksFilter( "md", function(value) {    
     var result;
       try {
