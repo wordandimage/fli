@@ -90,11 +90,11 @@ function generate_fly_path(algorithm = 'step-by-step') {
       
       let min_distance = 4;
       // let crosshair={x:6,y:0};
-      let n = Math.max(10, nav_item_segments.length);
+      let min_segments = nav_item_segments.length+1;
       let forwards = false;
 
       let keep_generating=(i)=>{
-        return i<1 || (fly_path.points.at(-1).y<max_y);
+        return i<1 || (fly_path.points.at(-1).y<max_y) || (i<min_segments);
       }
 
 

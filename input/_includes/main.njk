@@ -81,7 +81,7 @@ landing: false
                     {% elif template == 'projects' %}
                         <details id="filters">
                             <summary class="noselect"><span class="body-tnr">Filters</span> {{ macros.close_icon() }}</summary>
-                            <button class="body-tnr" disabled id="clear-filters">Clear filters</button>
+                            <button class="body-tnr" disabled id="clear-filters"><span>Clear filters</span></button>
                             {% set test = cms.project_metadata | console_debug("tags") %}
                             <div class="metadata-group">
                                 <h3 class="pantasia-tiny tiny-label">Event Type:</h3>

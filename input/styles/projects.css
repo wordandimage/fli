@@ -6,6 +6,10 @@
 #filters summary{
     color:var(--color-pop);
     cursor:pointer;
+    height:1em;
+    display:flex;
+    flex-flow:row nowrap;
+    align-items:center;
 }
 
 #clear-filters{
@@ -14,6 +18,10 @@
     /* 2.8rem based on width of .close-icon */
     left:calc(2.8rem + var(--g) * 2);
     opacity:0;
+    height:1em;
+    display:flex;
+    flex-flow:row nowrap;
+    align-items:center;
 }
 
 #clear-filters.active{
@@ -22,7 +30,7 @@
 
 #filters summary .close-icon{
     display:none;
-    margin-top:0.25em;
+    /* margin-top:0.25em; */
 }
 
 #filters[open] summary{
