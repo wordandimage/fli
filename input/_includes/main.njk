@@ -1,26 +1,36 @@
 ---
 title: ''
-landing: false
+pagetype: 'page'
 ---
 
 {% import 'macros.njk' as macros with context %}
-{% set base_url="BASE_URL" | env%}
-{% set rootpath="" if landing else "../" %}
+{% import 'projects_feed.njk' as projects_feed with context %}
+{% import 'nav.njk' as nav with context %}
+{% import 'article_content.njk' as article_content with context %}
+
+{% set landing = pagetype == "landing" %}
+
+
+{% if landing %}
+    {% set rootpath = "" %}
+{% endif %}
+
 {% set template = "home" if landing else pg.properties.template.value[0] %}
 
-{# {% set testing = cms.projects[0] | console_debug("project") %} #}
-{% set homepage_content = cms.pages | notion_data_find_in_select("template","home") %}
+{% set homepage_content = cms.pages | notion_data_find_in_select("template", "home") %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>For the Love of Inquiry {%if title%}| {{title}}{% endif %}</title>
+        <title>For the Love of Inquiry {%if title%}| {{title}}
+            {% endif %}
+        </title>
         <link rel="stylesheet" type="text/css" href="{{rootpath}}styles/clearstyle.css">
         <link rel="stylesheet" type="text/css" href="{{rootpath}}styles/style.css">
-        
+
         <script>
-            let base_url="{{base_url}}"
+            let base_url = "{{base_url}}"
         </script>
         <script src="{{rootpath}}scripts/script.js" defer></script>
         {% if template == 'projects'%}
@@ -30,116 +40,39 @@ landing: false
     </head>
     <body>
         <main data-menu_open="false">
-            <button id="toggle-nav" aria-controls="menu" aria-expanded="false">
-                <label class="body-tnr">Menu</label>
-                {{ macros.close_icon() }}
-            </button>
-            <nav
-                id="menu" name="Menu" aria-hidden="true">
-                {# preserveAspectRatio="none" #}
-                <div id="fly-path-wrapper">
-                    <div id="fly-path-inner-wrapper">
-                        <svg id="fly-path" viewbox="0 0 100 100" xmlns:xlink="http://www.w3.org/1999/xlink" class="fly-line">
-                            <defs>
-                                <polyline id="trace" points="0,0"></polyline>
-                                <mask id="mask">
-                                    <use class="mask" xlink:href="#trace"></mask>
-                                </defs>
-                                <use class="aggregate" xlink:href="#trace" mask="url(#mask)"/>
-                            </svg>
-                            {{ macros.fly() }}
-                        </div>
-                    </div>
-                    {% for page in cms.pages %}
-                        {% if page.properties.include_in_menu.value %}
-                        <div class="nav-link-wrapper">
-                            {% set title = page.properties.title.value %}
-                            {% if page.properties.template.value[0]=='home' %}
-                                {% set link = "" %}
-                            {% else%}
-                                {% set link = title | slugify %}
-                            {% endif %}
-                            
-                            <a class="menu-link pantasia-large" href="{{base_url}}{{ link }}">{{title}}</a>
-                        </div>
-                        {% endif %}
-                    {% endfor %}
-                </nav>
-                <article>
-                    <header>
-                        <h1>
-                            <a href="{{base_url}}">For the<br>Love of<br>Inquiry</a>
-                        </h1>
-                    </header>
-                    {% if not landing %}
+            
+            {{ nav.html() }}
+
+            <article>
+                <header>
+                    <h1>
+                        <a href="{{base_url}}">For the<br>Love of<br>Inquiry</a>
+                    </h1>
+                </header>
+                {% set pagetext = false %}
+                {% set pagetitle = false %}
+                {% if pagetype == "landing" %}
+                    {% set pagetext = homepage_content.mdcontent %}
+                {% elif pagetype == "page" %}
+                    {% set pagetitle = pg.properties.title.value %}
+                    {% if template !== "projects" %}
                         {% set pagetext = pg.mdcontent %}
-                    {% else %}
-                        {% set pagetext = homepage_content.mdcontent %}
                     {% endif %}
-                    {% if landing or template == 'default' %}
-                        {{ macros.content_loop(pagetext) }}
-                    {% elif template == 'projects' %}
-                        <details id="filters">
-                            <summary class="noselect"><span class="body-tnr">Filters</span> {{ macros.close_icon() }}</summary>
-                            <button class="body-tnr" disabled id="clear-filters"><span>Clear filters</span></button>
-                            {% set test = cms.project_metadata | console_debug("tags") %}
-                            <div class="metadata-group">
-                                <h3 class="pantasia-tiny tiny-label">Event Type:</h3>
-                                <menu class="metadata-wrapper">
-                                    {% for option in cms.project_metadata.event_types %}
-                                    {% set input_name = "toggle_event_type_" + (option | slugify) %}
-                                        <li class="noselect metadata event-type filter-option"><input id="{{input_name}}" type="checkbox" data-event_type="{{option | slugify}}"><label class="box" for="{{input_name}}">{{option}}</label></li>
-                                    {% endfor %}
-                                </menu>
-                            </div>
-                            <div class="metadata-group">
-                                <h3 class="pantasia-tiny tiny-label">Tags:</h3>
-                                <menu class="metadata-wrapper">
-                                    {% for option in cms.project_metadata.tags %}
-                                    {% set input_name = "toggle_tag_" + (option | slugify) %}
-                                        <li class="noselect metadata tag filter-option"><input id="{{input_name}}" type="checkbox" data-tag="{{option | slugify}}"><label class="box" for="{{input_name}}">{{option}}</label></li>
-                                    {% endfor %}
-                                </menu>
-                            </div>
-                        </details>
-                        <div id="projects">
-                            
-                            {% for project in cms.projects | notion_sort_by_date %}
-                                {% set proj_title = project.properties.title.value %}
-                                {% set testing = project.properties.tags | console_debug("tags") %}
-                                <a class="project" href="{{base_url}}projects/{{proj_title | slugify}}">
-                                    {% set thumb =  project.properties.thumbnail_image.value[0] %}
-                                    <figure class="project-thumbnail">
-                                        {% if thumb %}
-                                            
-                                            {{ macros.picture(thumb.name,rootpath) }}
-                                        {% else %}
-                                            <div class="empty" >
-                                            </div>
-                                        {% endif %}
-                                    </figure>
-                                    
-                                    <p class="short-label-tnr">{{proj_title}}</p>
-                                    <ul class='metadata-wrapper'>
-                                        {% for event_type in project.properties.event_type.value %}
-                                            {% if event_type %}
-                                                <li class="noselect metadata event-type" data-item="{{event_type | slugify}}"><span class="box">{{event_type}}</span></li>
-                                            {% endif %}
-                                        {% endfor %}
-                                        
-                                        {% for tag in project.properties.tags.value %}
-                                            <li class="noselect metadata tag" data-item="{{tag | slugify}}"><span class="box">{{tag}}</span></li>
-                                        {% endfor %}
-                                    </ul>
-                                </a>
-                            {% endfor %}
-                        </div>
-                        
-                    {% endif %}
-                    
-                </article>
-            </main>
-        </body>
+                {% elif pagetype == "project" %}
+                    {% set pagetext = proj.mdcontent %}
+                    {% set pagetitle = proj.properties.title.value %}
+                {% endif %}
+                {% if pagetitle %}
+                    <h2 class="page-heading">{{pagetitle}}</h2>
+                {% endif %}
+
+                {% if pagetext %}
+                    {{ article_content.loop(pagetext) }}
+                {% elif template == 'projects' %}
+                    {{ projects_feed.html() }}
+                {% endif %}
+
+            </article>
+        </main>
     </body>
 </html>
-

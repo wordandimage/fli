@@ -1,8 +1,16 @@
----
-pagination:
-  data: cms.pages
-  size: 1
-  alias: pg
-permalink: "{{ pg.properties.title.value | slugify }}/"
-layout: main.njk
+---js
+{
+  pagination:{
+    data: "cms.pages",
+    size: 1,
+    alias: "pg",
+    before:(items)=>{
+      return items.filter(item=>!item.properties.template.value.includes("home"));
+    }
+  },
+  permalink: "{{ pg.properties.title.value | slugify }}/",
+  layout: "main.njk",
+  rootpath: "../",
+  pagetype: "page",
+}
 ---

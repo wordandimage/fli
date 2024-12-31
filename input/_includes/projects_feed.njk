@@ -1,0 +1,68 @@
+{% macro html() %}
+    <details id="filters">
+        <summary class="noselect">
+            <span class="body-tnr">Filter</span>
+            {{ macros.close_icon() }}</summary>
+        <button class="body-tnr" disabled id="clear-filters">
+            <span>Clear filters</span></button>
+        <div class="metadata-group">
+            <h3 class="pantasia-tiny tiny-label">Event Type:</h3>
+            <menu class="metadata-wrapper">
+                {% for option in cms.project_metadata.event_types %}
+                    {% set input_name = "toggle_event_type_" + (
+                    option | slugify) %}
+                    <li class="noselect metadata event-type filter-option"><input id="{{input_name}}" type="checkbox" data-event_type="{{option | slugify}}">
+                        <label class="box" for="{{input_name}}">{{option}}</label>
+                    </li>
+                {% endfor %}
+            </menu>
+        </div>
+        <div class="metadata-group">
+            <h3 class="pantasia-tiny tiny-label">Tags:</h3>
+            <menu class="metadata-wrapper">
+                {% for option in cms.project_metadata.tags %}
+                    {% set input_name = "toggle_tag_" + (
+                    option | slugify) %}
+                    <li class="noselect metadata tag filter-option"><input id="{{input_name}}" type="checkbox" data-tag="{{option | slugify}}">
+                        <label class="box" for="{{input_name}}">{{option}}</label>
+                    </li>
+                {% endfor %}
+            </menu>
+        </div>
+    </details>
+    <div id="projects">
+
+        {% for project in cms.projects | notion_sort_by_date %}
+            {% set proj_title = project.properties.title.value %}
+            <a class="project" href="{{base_url}}projects/{{proj_title | slugify}}">
+                {% set thumb = project
+                    .properties
+                    .thumbnail_image
+                    .value[0] %}
+                <figure class="project-thumbnail">
+                    {% if thumb %}
+
+                        {{ macros.picture(thumb.name,rootpath) }}
+                    {% else %}
+                        <div class="empty" ></div>
+                    {% endif %}
+                </figure>
+
+                <p class="short-label-tnr">{{proj_title}}</p>
+                <ul class='metadata-wrapper'>
+                    {% for event_type in project.properties.event_type.value %}
+                        {% if event_type %}
+                            <li class="noselect metadata event-type" data-item="{{event_type | slugify}}">
+                                <span class="box">{{event_type}}</span></li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% for tag in project.properties.tags.value %}
+                        <li class="noselect metadata tag" data-item="{{tag | slugify}}">
+                            <span class="box">{{tag}}</span></li>
+                    {% endfor %}
+                </ul>
+            </a>
+        {% endfor %}
+    </div>
+{% endmacro %}

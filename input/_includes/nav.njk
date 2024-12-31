@@ -1,0 +1,40 @@
+{% macro html() %}
+<button id="toggle-nav" aria-controls="menu" aria-expanded="false">
+    <label class="body-tnr">Menu</label>
+    {{ macros.close_icon() }}
+</button>
+
+<nav id="menu" name="Menu" aria-hidden="true">
+    <div id="fly-path-wrapper">
+        <div id="fly-path-inner-wrapper">
+            <svg id="fly-path" viewbox="0 0 100 100" xmlns:xlink="http://www.w3.org/1999/xlink" class="fly-line">
+                <defs>
+                    <polyline id="trace" points="0,0"></polyline>
+                    <mask id="mask"><use class="mask" xlink:href="#trace"/></mask>
+                </defs>
+                <use class="aggregate" xlink:href="#trace" mask="url(#mask)"/>
+            </svg>
+            {{ macros.fly() }}
+        </div>
+    </div>
+
+    {% for page in cms.pages %}
+        {% if page.properties.include_in_menu.value %}
+            <div class="nav-link-wrapper">
+                {% set title = page.properties.title.value %}
+                {% if page
+                    .properties
+                    .template
+                    .value[0] == 'home' %}
+                    {% set link = "" %}
+                    {% else%}
+                    {% set link = title | slugify %}
+                {% endif %}
+
+                <a class="menu-link pantasia-large" href="{{base_url}}{{ link }}">{{title}}</a>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+</nav>
+{% endmacro %}

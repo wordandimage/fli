@@ -1,0 +1,10 @@
+---
+pagination:
+  data: cms.projects
+  size: 1
+  alias: proj
+permalink: "projects/{{ proj.properties.title.value | slugify }}/"
+layout: main.njk
+rootpath: "../../"
+pagetype: "project"
+---

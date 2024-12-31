@@ -1,0 +1,38 @@
+{% macro loop(blocks) %}
+    {% for block in blocks %}
+        {% if block.type=='image' %}
+            <div class="block image-wrapper" data-size="{{block.value.options}}">
+                {{ macros.page_img(block.value,rootpath) }}
+            </div>
+        {% elseif block.type=='gallery' %}
+            <div class="block gallery {{ block.value.options | join(' ') }}" data-length="{{block.value.items.length}}">
+                <div class="item-wrapper">
+                    {% for item in block.value.items %}
+                        {% if item.type == 'image' %}
+                            <div class="slide {{active if loop.index0 == 0 }}" data-i="{{loop.index0}}">
+                            {{ macros.page_img(item.value,rootpath) }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% elseif block.type=='list' %}
+            <div class="block list">
+                <ul>
+                    {{ macros.list_items(block.value.items) }}
+                </ul>
+            </div>
+        {% else %}
+        
+            <div 
+                data-blocktype="{{block.type}}" 
+                class='block {{"anchor-heading" if block.type=='heading_2'}}' {% if block.type=='heading_2'%} 
+                id="jump-to-{{block.value | replace('##','') | slugify}}" {% endif %}
+            >
+                {{ block.value | md | safe }}
+            </div>
+                
+        {% endif %}
+    
+    {% endfor %}
+{% endmacro %}

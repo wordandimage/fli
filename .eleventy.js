@@ -22,6 +22,11 @@ module.exports = function(eleventyConfig) {
     return process.env[value]
   });
 
+  // eleventyConfig.addJavaScriptFunction("filter_out_landing", (pages) => {
+  //   console.log('test test hello',pages);
+  //   return pages.filter(page => !page.properties.template.value.includes("home"));
+  // });
+
   eleventyConfig.addNunjucksFilter( "notion_data_find", function(array,property,value) {   
     return array.find(item=>item.properties[property].value==value);
   });
@@ -62,6 +67,8 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("assets");
   eleventyConfig.addTemplateFormats('md,njk,css,js')
 
+  
+
     // Return your Object options:
     return {
       dir: {
@@ -69,4 +76,4 @@ module.exports = function(eleventyConfig) {
         output: "_site"
       }
     }
-  };
+};
