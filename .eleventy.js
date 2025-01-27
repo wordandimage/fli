@@ -41,6 +41,60 @@ module.exports = function(eleventyConfig) {
     return value;
   });
 
+
+  eleventyConfig.addNunjucksFilter( "date_format", function({start,end} = {}) {  
+    if(!start) return '';
+    let start_date=new Date(start);
+    let start_ymd={
+      year:start_date.getFullYear(),
+      month:start_date.toLocaleString('default', { month: 'long' }),
+      day:start_date.getDay()
+    }
+
+    if(end){
+      let end_date=new Date(end);
+      let end_ymd={
+        year:end_date.getFullYear(),
+        month:end_date.toLocaleString('default', { month: 'long' }),
+        day:end_date.getDay()
+      }
+      if(end_ymd.year !==start_ymd.year){
+        // if years are different, do month year - month year
+        return `${start_ymd.month} ${start_ymd.year} — ${end_ymd.month} ${end_ymd.year}`
+      }else if(end_ymd.month !== start_ymd.month){
+        // if months are different, do month - month year
+        return `${start_ymd.month} — ${end_ymd.month} ${start_ymd.year}`;
+      }else if (end_ymd.day !== start_ymd.day){
+        // if days are different, do month day-day, 2024
+        return `${start_ymd.month} ${start_ymd.day} — ${end_ymd.day}`;
+      }else{
+        return format_single_day(start_ymd);
+      }
+      
+    }else{
+      return format_single_day(start_ymd);
+    }
+
+    function format_single_day({year,month,day}){
+        return `${month} ${day}, ${year}`;
+    }
+    
+    return '';
+
+    // range 
+    // if(value?.start && value?.end){
+
+    // }else if(value?.start){
+
+    // }else{
+    //   return '';
+    // }
+
+    // if(prefix) console.log(prefix,value);
+    // else console.log(value);
+    // return value;
+  });
+
   eleventyConfig.addNunjucksFilter("notion_sort_by_date", function(array) {    
     let sorted=array.toSorted((a,b)=>{
       let a_date=a.properties.date?.value?.start || '';
@@ -51,6 +105,27 @@ module.exports = function(eleventyConfig) {
     })
     return sorted;
   });
+
+  let ital=(v)=>`<em>${v}</em>`;
+  let bold=(v)=>`<strong>${v}</strong>`;
+  let link=(v,href)=>`<a href="${href}">${v}</a>`
+
+  eleventyConfig.addNunjucksFilter("notion_rich_text_to_html",function(rich_text_nodes = []){
+    let html_str = '';
+    for(let node of rich_text_nodes){
+      let v=node.text?.content || '';
+      if(node.annotations.italic) v=ital(v);
+      if(node.annotations.bold) v=bold(v);
+      if(node.href) v=link(v,node.href);
+
+      html_str+=v;
+    }
+    return html_str;
+  })
+
+  eleventyConfig.addNunjucksFilter('pretty_link',function(url){
+    return url.replace('http://','').replace('https://','').replace('www.','');
+  })
 
   eleventyConfig.addNunjucksFilter( "md", function(value) {    
     var result;

@@ -1,6 +1,9 @@
 #filters{
-    margin-bottom:var(--article-item-spacing);
+    margin-bottom:calc(2 * var(--article-item-spacing));
     position:relative;
+    display:flex;
+    flex-flow:column nowrap;
+    gap:calc(var(--v-spacing) * 0.5);
 }
 
 #filters summary{
@@ -13,15 +16,16 @@
 }
 
 #clear-filters{
-    position:absolute;
+    opacity:0;
+    margin-left:calc(var(--g));
+    /* position:absolute;
     top:0;
-    /* 2.8rem based on width of .close-icon */
     left:calc(2.8rem + var(--g) * 2);
     opacity:0;
     height:1em;
     display:flex;
     flex-flow:row nowrap;
-    align-items:center;
+    align-items:center; */
 }
 
 #clear-filters.active{
@@ -106,6 +110,12 @@ a.project{
 
 .project-thumbnail img{
     filter:grayscale(1);
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
 }
 
 .project-thumbnail::after{
@@ -149,8 +159,8 @@ a.project{
     background-color: #d9d9d9;
 }
 
-.metadata-group{
-    margin-top:calc(var(--v-spacing) * 0.5);
+.category-group{
+    /* margin-top:calc(var(--v-spacing) * 0.5); */
 }
 
 

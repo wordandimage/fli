@@ -39,7 +39,7 @@ pagetype: 'page'
         {% endif %}
     </head>
     <body>
-        <main data-menu_open="false">
+        <main data-menu_open="false" data-pagetype="{{pagetype}}">
             
             {{ nav.html() }}
 
@@ -61,9 +61,61 @@ pagetype: 'page'
                 {% elif pagetype == "project" %}
                     {% set pagetext = proj.mdcontent %}
                     {% set pagetitle = proj.properties.title.value %}
+                    {% set cover_img = proj.properties.cover_image.value[0] %}
+                    {% if cover_img %}
+                        <div class="block image-wrapper" data-size="cover">
+                            {{ macros.page_img(cover_img,rootpath) }}
+                        </div>
+                    {% endif %}
                 {% endif %}
                 {% if pagetitle %}
                     <h2 class="page-heading">{{pagetitle}}</h2>
+                {% endif %}
+                {% if pagetype == 'project'%}
+                    <div class="block project-metadata">
+                        <ul class="category-wrapper">
+                            {% for event_type in proj.properties.event_type.value %}
+                                {% if event_type %}
+                                    <li class="metadata event-type" data-item="{{event_type | slugify}}">
+                                        <span class="box">{{event_type}}</span></li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% for tag in proj.properties.tags.value %}
+                                <li class="metadata tag" data-item="{{tag | slugify}}">
+                                    <span class="box">{{tag}}</span></li>
+                            {% endfor %}
+                        </ul>
+                        {% set proj_date = proj.properties.date.value | date_format %}
+                        {% if proj_date %}
+                            <div class="metadata-wrapper">
+                                <em class="body-tnr">Date</em> 
+                                <span class="body-tnr">{{ proj_date }}</span>
+                            </div>
+                        {% endif %}
+                        {% set proj_location = proj.properties.location.value %}
+                        {% if proj_location %}
+                            <div class="metadata-wrapper">
+                                <em class="body-tnr">Location</em>
+                                <span class="body-tnr">{{proj_location | notion_rich_text_to_html | safe }}</span>
+                            </div>
+                        {% endif %}
+                        {% set proj_partners = proj.properties.partners.value %}
+                        {% if proj_partners %}
+                            <div class="metadata-wrapper">
+                                <em class="body-tnr">With</em>
+                                <span class="body-tnr">{{proj_partners | notion_rich_text_to_html | safe }}</span>
+                            </div>
+                        {% endif %}
+                        {% set proj_website = proj.properties.website.value | console_debug %}
+                        {% if proj_website %}
+                            <div class="metadata-wrapper">
+                                <em class="body-tnr">Website</em>
+                                <span class="body-tnr"><a href="{{proj_website}}">{{ proj_website | pretty_link }}</a></span>
+                            </div>
+                            
+                        {% endif %}
+                    </div>
                 {% endif %}
 
                 {% if pagetext %}
