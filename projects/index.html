@@ -32,7 +32,7 @@
         
     </head>
     <body>
-        <main data-menu_open="false">
+        <main data-menu_open="false" data-pagetype="page">
             
             
 <button id="toggle-nav" aria-controls="menu" aria-expanded="false">
@@ -140,23 +140,15 @@
                 
                     <h2 class="page-heading">Projects</h2>
                 
+                
 
                 
                     
-    <details id="filters">
-        <summary class="noselect">
-            <span class="body-tnr">Filter</span>
-            
-<svg class="close-icon" viewBox="0 0 100 100" preserveAspectRatio="none">
-    <line vector-effect="non-scaling-stroke" x1="0" x2="100" y1="0" y2="100"></line>
-    <line vector-effect="non-scaling-stroke" x1="0" x2="100" y1="100" y2="0"></line>
-</svg>
-</summary>
-        <button class="body-tnr" disabled id="clear-filters">
-            <span>Clear filters</span></button>
-        <div class="metadata-group">
-            <h3 class="pantasia-tiny tiny-label">Event Type:</h3>
-            <menu class="metadata-wrapper">
+    <div id="filters">
+        
+        <div class="category-group">
+            <h3 class="pantasia-tiny tiny-label">By Type:</h3>
+            <menu class="category-wrapper">
                 
                     
                     <li class="noselect metadata event-type filter-option"><input id="toggle_event_type_workshop" type="checkbox" data-event_type="workshop">
@@ -185,9 +177,9 @@
                 
             </menu>
         </div>
-        <div class="metadata-group">
-            <h3 class="pantasia-tiny tiny-label">Tags:</h3>
-            <menu class="metadata-wrapper">
+        <div class="category-group">
+            <h3 class="pantasia-tiny tiny-label">By Tags:</h3>
+            <menu class="category-wrapper">
                 
                     
                     <li class="noselect metadata tag filter-option"><input id="toggle_tag_art" type="checkbox" data-tag="art">
@@ -236,7 +228,8 @@
                 
             </menu>
         </div>
-    </details>
+    </div>
+    
     <div id="projects">
 
         
@@ -250,7 +243,7 @@
                 </figure>
 
                 <p class="short-label-tnr">The Glitch Border Manifesto - Stockholm</p>
-                <ul class='metadata-wrapper'>
+                <ul class='category-wrapper'>
                     
                         
                             <li class="noselect metadata event-type" data-item="workshop">
@@ -272,7 +265,7 @@
                 </figure>
 
                 <p class="short-label-tnr">The Glitch Border Manifesto - Lagos</p>
-                <ul class='metadata-wrapper'>
+                <ul class='category-wrapper'>
                     
                         
                             <li class="noselect metadata event-type" data-item="workshop">
@@ -294,7 +287,7 @@
                 </figure>
 
                 <p class="short-label-tnr">The Glitch Border Manifesto - Berlin</p>
-                <ul class='metadata-wrapper'>
+                <ul class='category-wrapper'>
                     
                         
                             <li class="noselect metadata event-type" data-item="workshop">
@@ -325,7 +318,7 @@
                 </figure>
 
                 <p class="short-label-tnr">Artists at the Digital Border Salons</p>
-                <ul class='metadata-wrapper'>
+                <ul class='category-wrapper'>
                     
                         
                             <li class="noselect metadata event-type" data-item="panel">
@@ -356,7 +349,7 @@
                 </figure>
 
                 <p class="short-label-tnr">Glitching Digital Borders: Artists and New Border Systems</p>
-                <ul class='metadata-wrapper'>
+                <ul class='category-wrapper'>
                     
                         
                             <li class="noselect metadata event-type" data-item="publication">
@@ -384,7 +377,7 @@
                 </figure>
 
                 <p class="short-label-tnr">Politics of the Machines</p>
-                <ul class='metadata-wrapper'>
+                <ul class='category-wrapper'>
                     
                         
                     
@@ -403,7 +396,7 @@
                 </figure>
 
                 <p class="short-label-tnr">Allied Media Conference</p>
-                <ul class='metadata-wrapper'>
+                <ul class='category-wrapper'>
                     
                         
                             <li class="noselect metadata event-type" data-item="workshop">
@@ -432,7 +425,7 @@
                 </figure>
 
                 <p class="short-label-tnr">Digital Borders Course</p>
-                <ul class='metadata-wrapper'>
+                <ul class='category-wrapper'>
                     
                         
                             <li class="noselect metadata event-type" data-item="course">
@@ -476,7 +469,7 @@
                 </figure>
 
                 <p class="short-label-tnr">Slime Mold Workshop</p>
-                <ul class='metadata-wrapper'>
+                <ul class='category-wrapper'>
                     
                         
                             <li class="noselect metadata event-type" data-item="workshop">
@@ -498,7 +491,7 @@
                 </figure>
 
                 <p class="short-label-tnr">Being Apart &amp; Together</p>
-                <ul class='metadata-wrapper'>
+                <ul class='category-wrapper'>
                     
                         
                             <li class="noselect metadata event-type" data-item="panel">
@@ -521,12 +514,19 @@
                 
                 <figure class="project-thumbnail">
                     
-                        <div class="empty" ></div>
+
+                        
+<picture>
+    <source type="image/webp" srcset="../assets/images/img@@Digital-Borders-SalonIMG_9963@@lg.webp" type="image/webp">
+    <source type="image/jpg" srcset="../assets/images/img@@Digital-Borders-SalonIMG_9963@@lg.jpg">
+    <img loading="lazy" src="../assets/images/img@@Digital-Borders-SalonIMG_9963@@lg.jpg">
+</picture>
+
                     
                 </figure>
 
                 <p class="short-label-tnr">Culturehub New York City Residency</p>
-                <ul class='metadata-wrapper'>
+                <ul class='category-wrapper'>
                     
                         
                             <li class="noselect metadata event-type" data-item="residency">
