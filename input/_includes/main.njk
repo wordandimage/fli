@@ -94,21 +94,21 @@ pagetype: 'page'
                             </div>
                         {% endif %}
                         {% set proj_location = proj.properties.location.value %}
-                        {% if proj_location %}
+                        {% if proj_location.length>0 %}
                             <div class="metadata-wrapper">
                                 <em class="body-tnr">Location</em>
                                 <span class="body-tnr">{{proj_location | notion_rich_text_to_html | safe }}</span>
                             </div>
                         {% endif %}
                         {% set proj_partners = proj.properties.partners.value %}
-                        {% if proj_partners %}
+                        {% if proj_partners.length>0 %}
                             <div class="metadata-wrapper">
                                 <em class="body-tnr">With</em>
                                 <span class="body-tnr">{{proj_partners | notion_rich_text_to_html | safe }}</span>
                             </div>
                         {% endif %}
                         {% set proj_website = proj.properties.website.value | console_debug %}
-                        {% if proj_website %}
+                        {% if proj_website.length>0 %}
                             <div class="metadata-wrapper">
                                 <em class="body-tnr">Website</em>
                                 <span class="body-tnr"><a href="{{proj_website}}">{{ proj_website | pretty_link }}</a></span>

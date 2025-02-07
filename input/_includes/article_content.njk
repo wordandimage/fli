@@ -9,7 +9,8 @@
                 <div class="item-wrapper">
                     {% for item in block.value.items %}
                         {% if item.type == 'image' %}
-                            <div class="slide {{active if loop.index0 == 0 }}" data-i="{{loop.index0}}">
+                            {% set aspect_ratio = imgdata.aspect_ratios["img-"+item.value.name] %}
+                            <div class="slide {{active if loop.index0 == 0 }}" data-i="{{loop.index0}}" style="--aspect:{{1/aspect_ratio}};">
                             {{ macros.page_img(item.value,rootpath) }}
                             </div>
                         {% endif %}

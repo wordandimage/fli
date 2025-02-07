@@ -250,8 +250,12 @@ async function fetch_parse_block_content(block_id){
 
         if(block.type=='image'){
             // images!
-            let name=slugify(block.id.replace(/\.[^/.]+$/, ''))
+    
             
+            // get name from notion file url
+            let last_string=block.image.file.url?.split('/')?.at(-1);
+            let name=(last_string?.split('?') ?? [undefined])[0]?.replace(/\.[^/.]+$/, '') ?? slugify(block.id.replace(/\.[^/.]+$/, ''));
+
             item={
                 type:'image',
                 value:{
@@ -268,6 +272,8 @@ async function fetch_parse_block_content(block_id){
                     }).join('')
                 }
             }
+
+            
 
             file_processing_queue.push({
                 archive_type:'standalone',
@@ -359,7 +365,7 @@ async function fetch_parse_block_content(block_id){
         
     }
     
-    return content;
+    return content.filter(a=>a.type!=='paragraph'||(a.type=='paragraph'&&a.value.length>0));
 }
 
 module.exports = async function load_data({do_image_processing=false}={}){

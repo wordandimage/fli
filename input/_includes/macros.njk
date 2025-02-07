@@ -26,11 +26,11 @@
 {% macro page_img(image,rootpath, size) %}
     {% set aspect_ratio = imgdata.aspect_ratios["img-"+image.name] %}
     {% set landscape_or_vertical = "vertical" if aspect_ratio>1 else "landscape" %}
-    <figure class="img {{landscape_or_vertical}}" data-aspect-ratio="{{aspect_ratio}}">
+    <figure class="img {{landscape_or_vertical}}" data-aspect-ratio="{{aspect_ratio}}" style="--aspect:{{1/aspect_ratio}};">
         {{ picture(image.name,rootpath) }}
         {% if image.caption %}
-            <figcaption class="mono small-caps">
-                <p>{{ image.caption | md | safe }}</p>
+            <figcaption class="pantasia-tiny">
+                {{ image.caption | md | safe }}
             </figcaption>
         {% endif %}
         
