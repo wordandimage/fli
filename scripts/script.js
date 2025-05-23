@@ -77,7 +77,8 @@ function handle_resize() {
 
 function generate_fly_path() {
   const page = {
-    w: window.innerWidth,
+    // TODO:simplify and systematize this width logic
+    w: Math.min(1200,window.innerWidth) + 40,
     h: document.documentElement.scrollHeight,
   };
   let row_height = page.w / fly_path.columns / 4;

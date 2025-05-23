@@ -8,7 +8,8 @@
     --page-margin:20px;
     
     --scrollbar-width:0px;
-    --page-size:calc(100vw - (var(--page-margin) * 2 + var(--scrollbar-width)) );
+    --max-page-size:1200px;
+    --page-size:min(var(--max-page-size),calc(100vw - (var(--page-margin) * 2 + var(--scrollbar-width)) ));
     --fs-heading:25px;
     --fs-body:20px;
     --fs-caption:12px;
@@ -33,6 +34,8 @@ nav{
 
 main{
     padding:var(--page-margin);
+    max-width:calc(var(--page-size) + var(--page-margin) * 2);
+    margin-inline:auto;
     box-sizing:border-box;
     position:relative;
     overflow:hidden;
