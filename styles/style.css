@@ -301,10 +301,12 @@ svg.fly-line{
 #fly-path .aggregate{
     stroke:var(--color-pop);
     stroke-dasharray:1;
+    fill: none;
 }
 
 #fly-path .mask{
     stroke: white;
+    fill: none;
     stroke-width: 10;
     stroke-dasharray: var(--l);
     stroke-dashoffset:calc(var(--l) - var(--buzz));

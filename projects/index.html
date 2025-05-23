@@ -50,7 +50,7 @@
         <div id="fly-path-inner-wrapper">
             <svg id="fly-path" viewbox="0 0 100 100" xmlns:xlink="http://www.w3.org/1999/xlink" class="fly-line">
                 <defs>
-                    <polyline id="trace" points="0,0"></polyline>
+                    <polyline id="trace" points="0,0" stroke-width="0.15" stroke-linecap="round"></polyline>
                     <mask id="mask"><use class="mask" xlink:href="#trace"/></mask>
                 </defs>
                 <use class="aggregate" xlink:href="#trace" mask="url(#mask)"/>
@@ -171,8 +171,8 @@
                     </li>
                 
                     
-                    <li class="noselect metadata event-type filter-option"><input id="toggle_event_type_residency" type="checkbox" data-event_type="residency">
-                        <label class="box" for="toggle_event_type_residency">Residency</label>
+                    <li class="noselect metadata event-type filter-option"><input id="toggle_event_type_teaching" type="checkbox" data-event_type="teaching">
+                        <label class="box" for="toggle_event_type_teaching">Teaching</label>
                     </li>
                 
             </menu>
@@ -472,11 +472,20 @@
                 <ul class='category-wrapper'>
                     
                         
-                            <li class="noselect metadata event-type" data-item="workshop">
-                                <span class="box">Workshop</span></li>
+                            <li class="noselect metadata event-type" data-item="course">
+                                <span class="box">Course</span></li>
                         
                     
 
+                    
+                        <li class="noselect metadata tag" data-item="technology">
+                            <span class="box">Technology</span></li>
+                    
+                        <li class="noselect metadata tag" data-item="borders">
+                            <span class="box">Borders</span></li>
+                    
+                        <li class="noselect metadata tag" data-item="art">
+                            <span class="box">Art</span></li>
                     
                 </ul>
             </a>
@@ -529,8 +538,8 @@
                 <ul class='category-wrapper'>
                     
                         
-                            <li class="noselect metadata event-type" data-item="residency">
-                                <span class="box">Residency</span></li>
+                            <li class="noselect metadata event-type" data-item="teaching">
+                                <span class="box">Teaching</span></li>
                         
                     
 
