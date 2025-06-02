@@ -24,13 +24,18 @@
                 </ul>
             </div>
         {% else %}
-        
+            {% set heading_link ="section-"+block.value | replace('##','') | slugify if (block.type=='heading_2' and block.anchor_link) else ''%}
             <div 
                 data-blocktype="{{block.type}}" 
-                class='block {{"anchor-heading" if block.type=='heading_2'}}' {% if block.type=='heading_2'%} 
-                id="jump-to-{{block.value | replace('##','') | slugify}}" {% endif %}
+                class='block {{"anchor-heading" if heading_link}}' {% if heading_link%} 
+                id="{{heading_link}}" {% endif %}
             >
-                {{ block.value | md | safe }}
+                {%if heading_link%}
+                    <a href="#{{heading_link}}">{{ block.value | md | safe }}</a>
+                {% else%}
+                    {{ block.value | md | safe }}
+                {%endif%}
+                
             </div>
                 
         {% endif %}

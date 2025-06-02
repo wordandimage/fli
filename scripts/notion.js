@@ -209,12 +209,51 @@ async function fetch_database(database_id,{include_content=true,sort_prop}={}){
 
             await delay(500);
             
-            item.mdcontent=mdcontent
+            item.mdcontent=post_process_content(mdcontent);
         }
         
     }
     
     return results;
+}
+
+function post_process_content(mdcontent){
+    let non_h2_occurred=false;
+    return mdcontent.map((block)=>{
+        if(block.type =='heading_2'){
+            return {
+                ...block,
+                anchor_link:true
+            }
+        }else if(block.type=='heading_1'){
+            return {
+                ...block,
+                type:'heading_1',
+                value:block.value.replace('#','##'),
+                anchor_link:false
+            };
+        }else{
+            return block;
+        }
+        // if(block.type!=='heading_2'){
+        //     // record that an item other than an h2 has occurred in the body
+        //     // all following h2s should have an anchor link
+        //     non_h2_occurred=true;
+        //     return block;
+        // }else if(!non_h2_occurred){
+        //     // this means it’s an h2 at the top of the body, so it’s fine to leave alone
+        //     return {
+        //         ...block,
+        //         anchor_link:false
+        //     };
+        // }else{
+        //     // this means it’s an h2 further down, which needs to be linked
+        //     return {
+        //         ...block,
+        //         anchor_link:true
+        //     }
+        // }
+    })
 }
 
 // recursively load the content of a block

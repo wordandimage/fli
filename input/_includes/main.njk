@@ -32,6 +32,10 @@ pagetype: 'page'
         <script>
             let base_url = "{{base_url}}"
         </script>
+        {# <script src="https://cdn.jsdelivr.net/npm/svg-getpointatlength@latest/getPointAtLengthLookup.js"></script> #}
+        {# <script src="https://cdn.jsdelivr.net/npm/svg-getpointatlength@latest/getPointAtLengthLookup.min.js"></script> #}
+        {# <script src="{{rootpath}}scripts/libs/pointatlength.min.js"></script> #}
+        <script src="{{rootpath}}scripts/libs/pointatlength.js"></script>
         <script src="{{rootpath}}scripts/script.js" defer></script>
         {% if template == 'projects'%}
             <link rel="stylesheet" type="text/css" href="{{rootpath}}styles/projects.css">
@@ -69,6 +73,7 @@ pagetype: 'page'
                     {% endif %}
                 {% endif %}
                 {% if pagetitle %}
+                    {%if pagetype == 'project'%} <a href="{{base_url}}projects" class="pantasia-tiny tiny-label">Projects/</a>{% endif %}
                     <h2 class="page-heading">{{pagetitle}}</h2>
                 {% endif %}
                 {% if pagetype == 'project'%}
