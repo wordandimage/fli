@@ -8,7 +8,8 @@
     "build": "eleventy",
     "dev": "npx @11ty/eleventy --serve",
     "preview": "npx @11ty/eleventy --serve",
-    "sync": "node scripts/refresh-data.js"
+    "sync": "node scripts/refresh-data.js",
+    "content":"node scripts/content-update.js"
   },
   "repository": {
     "type": "git",
