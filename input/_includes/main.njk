@@ -73,7 +73,7 @@ pagetype: 'page'
                     {% endif %}
                 {% endif %}
                 {% if pagetitle %}
-                    {%if pagetype == 'project'%} <a href="{{base_url}}projects" class="pantasia-tiny tiny-label">Projects/</a>{% endif %}
+                    <div class="projects-bug pantasia-tiny tiny-label">{%if pagetype == 'project'%} <a href="{{base_url}}projects">Projects</a>/{% endif %}</div>
                     <h2 class="page-heading">{{pagetitle}}</h2>
                 {% endif %}
                 {% if pagetype == 'project'%}
