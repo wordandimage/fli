@@ -149,14 +149,14 @@ article .block{
 article .block a{
     --fg:var(--color-pop);
     color:var(--fg);
-    /* -webkit-text-stroke: 0.01em var(--fg); */
+    -webkit-text-stroke: 0.01em var(--fg);
     /* color:var(--color-pop); */
     text-decoration:none;
 }
 
 a.tiny-label{
     text-decoration:none;
-    /* -webkit-text-stroke: 0.01em var(--color-pop); */
+    -webkit-text-stroke: 0.01em var(--color-pop);
     color:var(--color-pop);
 }
 
