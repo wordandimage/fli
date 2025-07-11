@@ -274,8 +274,9 @@ em{
     --summed-margin:calc((var(--window-width) - var(--page-size)) / 2);
     width:calc(100% + var(--summed-margin) * 2);
     margin-left:calc(var(--summed-margin) * -1);
-    scroll-snap-type:x mandatory;
-    scroll-padding-left:var(--summed-margin);
+    /* scroll-snap-type:x mandatory;
+    scroll-padding-left:var(--summed-margin); */
+    scrollbar-width:none;
 }
 
 .block.gallery .item-wrapper::before,

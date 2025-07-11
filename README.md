@@ -4,7 +4,7 @@ If you have this repository cloned and installed on your computer, you can run `
 
 ### Refreshing the live website with the latest content
 
-- If you’ve only made text/layout updates, you can update the website from the github user interface like so:
+- If you’ve only made text/layout updates, you can update the website from the actions tab of the github user interface like so:
 
   <img width="1144" alt="Screenshot 2025-06-01 at 9 39 54 PM" src="https://github.com/user-attachments/assets/7b8556ad-c46f-40ad-a424-909c3715e2c6" />
 
