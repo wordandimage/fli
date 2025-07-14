@@ -19,6 +19,9 @@ let databases=[
 
 let file_processing_queue=[];
 
+
+const not_allowed_url_chars=/[*+~()'"!:@%]/g;
+
 let extension=(filename)=>{
     let find_extension=filename.match(/\.[^/.]+$/)
     let fExtension = find_extension.length>0?find_extension[0]:'invalid';
@@ -106,7 +109,9 @@ async function fetch_database(database_id,{include_content=true,sort_prop}={}){
                         for(let file of input_file_array){
                             
                             let ext=file.type=='file'?extension(file.name):{};
-                            let name=slugify((file.name || '').replace(/\.[^/.]+$/, ''));
+                            let name=slugify((file.name || '').replace(/\.[^/.]+$/, ''),{
+                                remove:not_allowed_url_chars
+                            });
                             if(file.type=='file'&&ext.acceptable){
                                 // save to array of file data for this database cell
                                 output_file_array.push({
@@ -292,8 +297,13 @@ async function fetch_parse_block_content(block_id){
     
             
             // get name from notion file url
+
             let last_string=block.image.file.url?.split('/')?.at(-1);
-            let name=(last_string?.split('?') ?? [undefined])[0]?.replace(/\.[^/.]+$/, '') ?? slugify(block.id.replace(/\.[^/.]+$/, ''));
+            let name=(last_string?.split('?') ?? [undefined])[0]?.replace(/\.[^/.]+$/, '') ?? slugify(block.id.replace(/\.[^/.]+$/, ''),{
+                remove:not_allowed_url_chars
+            });
+
+            name=name.replaceAll(not_allowed_url_chars,'');
 
             item={
                 type:'image',
