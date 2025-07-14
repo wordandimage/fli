@@ -7,3 +7,5 @@ _site/
 node_modules/
 
 .cache
+
+scratchpad.md

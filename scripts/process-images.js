@@ -37,7 +37,7 @@ module.exports=async function process_images(file_processing_queue=[]){
             let size_missing=false;
             // check if any of the sizes don't exist
             for(let size of file?.sizes || []){
-                file.filename = file.name.replace(/\.[^/.]+$/, '');
+                file.filename = file.name;
 
                 let path=get_all_formats_for_size(file,size);
                 let exists=fs.existsSync(path.jpg)&&fs.existsSync(path.webp);

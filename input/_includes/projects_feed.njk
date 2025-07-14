@@ -80,13 +80,15 @@
                     {% for event_type in project.properties.event_type.value %}
                         {% if event_type %}
                             <li class="noselect metadata event-type" data-item="{{event_type | slugify}}">
-                                <span class="box">{{event_type}}</span></li>
+                                <span class="box">{{event_type}}</span>
+                            </li>
                         {% endif %}
                     {% endfor %}
 
                     {% for tag in project.properties.tags.value %}
                         <li class="noselect metadata tag" data-item="{{tag | slugify}}">
-                            <span class="box">{{tag}}</span></li>
+                            <span class="box">{{tag}}</span>
+                        </li>
                     {% endfor %}
                 </ul>
             </a>
